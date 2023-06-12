@@ -34,3 +34,60 @@ git status
 NOTE: It should not be committed.
 if you try to untrack the committed file we need to modify the file.
 
+HISTORY:
+
+  1  mkdir netflic
+    2  mv netflic/ netflix
+    3  cd netflix/
+    4  yum install git -y
+    5  ls -al
+    6  git init
+    7  ls -al
+    8  vim index.html
+    9  git status
+   10  git add index.html
+   11  git status
+   12  git commit -m "commit-1" index.html
+   13  git status
+   14  ll
+   15  touch css{1..5}
+   16  ll
+   17  git status
+   18  git add *
+   19  git status
+   20  git commit -m "commit-2" *
+   21  git log
+   22  git log --oneline
+   23  git show e6bde29
+   24  git show css1
+   25  git config user.name "rahamshaik"
+   26  git config user.email "rahamshaik@gmail.com"
+   27  git log
+   28  ll
+   29  touch js{1..5}
+   30  ll
+   31  git status
+   32  git add *
+   33  git status
+   34  git commit -m "commit-3" *
+   35  git log
+   36  git log -2
+   37  git log -1
+   38  toych file1
+   39  touch file1
+   40  git status
+   41  git add file1
+   42  git status
+   43  git restore --staged file1
+   44  git status
+   45  git add file1
+   46  git status
+   47  git restore --staged file1
+   48  git status
+   49  git add file1
+   50  git status
+   51  ll
+   52  vim index.html
+   53  git status
+   54  history
+
