@@ -1,0 +1,36 @@
+
+12-06-2023: DAY-01: INTRO, INSTALLATION, ARCHITECTURE & COMMANDS (ADD, COMMIT, STATUS, RESTORE, LOGS)
+
+GIT:
+yum install git -y: to install git
+git init: to initialize .git repo (local repo)
+
+vim index.html (untracked)
+git status: show the stage of file
+git add index.html: to track index.html
+git commit -m "commit-1" index.html: to commit index.html
+git log: to show the commits 
+git log --oneline: to show logs on single line
+git log -2: shows recent 2 logs
+git log -5: shows recent 5 logs
+git show e6bde29: to show the files which is committed to it
+git show css1: to show which commit applied to file css1
+
+TO CONFIGURE USER & EMAIL:
+git config user.name "rahamshaik"
+git config user.email "rahamshaik@gmail.com"
+git log
+
+
+RESTORE: TRACK -- > UNTRACK
+
+touch file
+git status
+git add file1
+git status
+git restore --staged file1
+git status
+
+NOTE: It should not be committed.
+if you try to untrack the committed file we need to modify the file.
+
