@@ -1,0 +1,328 @@
+LINUX: Free and Open-source OS
+OS: Operating system -- > communication blw user & system.
+
+TYPES OF OS:
+1. WINDOWS
+2. LINUX
+3. MAC OS
+
+LINUX COMPONENTS:
+
+1. KERNEL: Manages hardware components (CPU, MEMORY, etc --)
+           The lowest level of OS.
+
+2. DAEMON: Manage the Background Service (Lights, Sounds, schedule)
+           While starting the system.
+
+3. SHELL: Manage the User Inputs (Command, Script, programs)
+          Takes input from the user and executes and gives the output.
+           
+
+LINUX OS FLAVOURS/DISTRIBUTIONS:
+
+IPHONE: 14, 14+, 14 PRO, 14 PRO MAX,
+VERSIONS: 14, 13, 12, 11
+
+MAIN:
+RedHat
+Ubuntu  (75%)
+Amazon Linux
+
+MODES:
+1. GUI: Its having the Dashboard
+2. CLI: Command line interface (Works with commands only)
+
+HISTORY:
+1991 -- > Linus Torvalds -- > student from finland.
+1991 -- > Want to create an OS that works like UNIX.
+LINUX is Written in C Programming. (1972)
+Firstly he wanted to name it as 'Freax' but later it became 'Linux'.
+1992 -- > Linxu's initial version was released. 
+TOTAL PROGRAMMING LANGUAGES: 700 +
+
+OPEN SOURCE:
+It is free no need to pay money.
+It is available publically.
+We can change the code.
+we can give a copy of the code to other people.
+
+ADVANTAGES:
+It's free and open-source.
+Multi-user based.
+Fewer Bugs.
+Better Performance.
+It can be used for all programming languages.
+It will hang very rarely.
+
+===========================================================================
+
+DAY-02: SERVER & COMMANDS
+
+MOBAXTERM LINK: https://download.mobatek.net/2312023031823706/MobaXterm_Portable_v23.1.zip
+
+NOTE: Go to the path where you have keypair
+CONNECT: SELECT THE SERVER -- > CONNECT -- > SSH CLINET -- > COPY TO TERMINAL
+PASTE: 1. RIGHT CLICK 2. SHIFT + INSERT
+
+
+COMMANDS:
+ec2-user: default user       root: admin
+*	: refers all in linux
+
+
+sudo -i		: switch to root user form ec2-user
+clear/ctrl + l	: to clear the screen
+touch file1	: to create a file
+ll/ls		: to list the files
+ll -a / ls -a	: to list the hidden files
+pwd		: to show the present working directory
+cat file1	: to show the content in a file
+more file1	: to show the content in a file
+cat>file1	: to insert the content
+enter, ctrl d	: to save the content
+cat>>file1	: to insert the content more than one time.
+
+cp file1 file2	: to copy the content from file1 to file2
+mv file1 file5	: to rename file1 to file5
+rm file2	: to remove file2
+rm file4 -f	: to remove file4 forcefully
+rm * -f		: to remove all files forcefully
+
+touch java{1..5}: to create series of files
+rm j* -f	: to remove all the files starting with j
+wc file1	: to see number of lines, words & characters.
+
+head file2	: to print top 10 lines
+head -7 file2	: to print top 7 lines
+head -5 file2	: to print top 5 lines
+
+tail file2	: to print bottom 10 lines
+tail -7 file2	: to print bottom 7 lines
+tail -5 file2	: to print bottom 5 lines
+sed -n '6,16p' file2 : to print form line numbers 6 to 16
+
+FOLDERS = DIRECTORIES
+
+mdkir dir1	: to create a folder
+cd dir1		: to go inside the directory
+cd ..		: to go back one directory
+rmdir dir1	: to remove a directory
+
+echo "hai raham" > file3
+===============================================================
+
+
+DAY-03:
+
+STATIC: We can't modify
+DYNAMIC: We can mofify
+
+VI/VIM EDITOR: Used to edit files and insert content.
+i: used to modify/insert content
+esc: to get out from insert mode
+
+3. SAVE MODE:
+
+:w	: to save 
+:q	: to quit 
+:wq	: to save & quit
+!	: forcefully
+
+2. INSERT MODE:
+
+A	: End of line
+I	: Starting of line
+O	: Create new line above existing line
+o	: Create new line below existing line
+
+1. COMMAND MODE:
+
+yy	: copies single line
+p	: paste single line
+dd	: delete single line
+u	: undo
+
+nyy	: copies n lines
+np	: pastes n line
+ndd	: delete n lines
+nu	: undo n times
+
+gg	: top of file
+shift+g	: bottom of file
+:15	: to go to line 15
+:set number: print lines inside the file
+
+===========================================================================================================
+
+HARDWARE:
+
+cat /proc/meminfo	: to show memory information
+lsmem			: to show memory information
+cat /proc/cpuinfo	: to show cpu information
+lscpu			: to show cpu information
+cat /etc/os-release	: to print flavoure
+
+
+fdisk -l		: to show the ebs volume info
+lsblk			: to show the ebs volume info
+
+df			: to show the mount point
+df -m			: to show the mount point in mb
+
+free			: to show how much ram is available
+free -m			: to show how much ram is available
+
+yum install lshw -y	: to install the package 
+lshw			: to show the hardware information.
+====================================================================================================================
+
+
+USERS: 
+ec2-user: he is the default user.
+
+root: he is the admin, he will have all permissions.
+superuser: 
+he is a normal user created by root user.
+normal user -- > visudo -- > super user
+
+useradd raham: to create a user
+cat /etc/passwd: to see the users list.
+
+user -- > GROUP & FOLDER
+
+cat /etc/group: to see the groups list.
+ls /home: to show user folder on home 
+id raham: to show the user info
+passwd raham: to assign password for user
+
+NOTE: in linux password will not be visible.
+password -- > more than 8 char. 
+username should not be given as password.
+
+To create super user:
+1. create user (useradd raham)
+2. password (passwd raham)
+3. visudo -- > 100 -- > yy & p -- > root=raham
+
+su - rajesh : to login to super user
+
+NOTE: In linux if you are on non root use sudo command 
+
+
+root -- > normal -- > visudo -- > super user 
+
+logout or ctrl d used to exit from super user.
+
+
+=============================================================
+
+-rw-r--r-- 1 root root 0 Jun  8 16:02 file1
+
+
+TYPE OF FILES:
+-	: Regular file
+b	: Blocked file
+c	: Charcter file
+d	: Directory
+l	: link file
+
+PERMISSION:
+
+rw-r--r--
+r	: read		: 4
+w	: write		: 2
+x	: executable	: 1
+
+user	: rw-	: 4+2+0	: 6
+group	: r--	: 4+0+0	: 4
+others	: r--	: 4+0+0	: 4
+
+
+chmod 777 file1
+chmod 666 file2
+
+1	: acl -- > access control list
+
+
+chown raham file1: to make raham as owner to file1
+chgrp raham file1: to make raham as group to file1
+chown raham:raham file2 : to make raham user&group for file2
+chown rajesh:raham file1: rajesh as user & raham as group
+
+
+groupadd devops	: to create devops group
+usermod -aG devops raham : to add raham user to devops group
+usermod -aG aws raham : to add raham user to aws group
+
+gpasswd --delete raham devops : to remove raham user form devops group
+userdel raham : to delete raham user
+
+=======================================================================================================
+
+DAY-05:
+
+
+GREP : Global Regular Expression Print
+to search for a particular word
+
+grep is file1		: to search word is on file1
+grep IS file1 -i	: to avoid the case sensitive
+grep IS file1 -i -v	: to avoid the line which is having word is
+cat file1 | grep is	: to search word is on file1
+cat file1 | grep IS -i	: to avoid the case sensitive
+cat file1 | grep IS -iv : to avoid the line which is having word is
+
+| : is pipe sysmbol -- > to work with pipe we need to have 2 commands
+here 1 st command output will be input of 2 nd command.
+
+lscpu | grep cpu -i
+lsmem | grep memory -i
+dmesg | grep image -i
+
+
+SED: Stream Editor -- > to replace words in a file.
+
+%s/is/abc/ -- > to replace is with abc
+sed '3c/abc/' file1  -- > to replce 3rd line in a file
+sed 's/linux/unix/' file1-- > single word replace
+sed 's/linux/unix/; s/session/class/' file1 -- > multi word replace
+cat file1 -n -- > to print line numbers in a file
+sed '=' file1 -- > to print line numbers in a file
+sed -n '5,13p' file1 -- > to print line 5 to 13
+sed -e '5,13p' file1 -- > to print line 5 to 13 double times
+
+NETWORKING:
+ip addr
+ip addr show
+hostname -i
+ifconfig          -- > all the 4 commands used to show ip address
+
+ping google.com -- > to get response form server
+ping -c 4 google.com
+netstat   --- > to show active internet connections
+ps  -- > to check the process
+kill -9 32555 -- > to kill a process
+ps aux -- > to list process in ids
+
+===========================================================================
+
+LINUX DIRECTORY SYSTEM:
+FHS 
+
+
+bin	: it stores all the binary files and also it stores the commands that had been executed by the user.
+sbin	: it stores the commands that had been executed by the super user.
+boot	: it contains boot images & boot files.
+dev	: it contains all the device files
+etc	: it contains all the host specific system configuration files.
+lib	: it contains all the library files of the system.
+lib64	: it contains all the library files of the system of 64 bit.
+mnt	: it is used for the mounting purpose.
+opt	: it stores all the file details of the 3 rd party when it installed.
+proc	: it is used to see all the processing related files (Hardware details).
+srv	: it stores all the service related information provided by system.
+sys	: it stores any new changes that obtained while changing Hardware.
+tmp	: it stores temperory files and have access to all.
+usr	: it contains local system files which are continuing with the old system architecture.
+var	: it stores all the system services.
+
