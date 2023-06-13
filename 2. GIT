@@ -91,3 +91,124 @@ HISTORY:
    53  git status
    54  history
 
+===============================================================
+
+13-06-2023: DAY-02: BRACHES, MEREGE, REBASE, GITHUB
+
+BRANCH: It is an individual line of development.
+developers can develop the source code independently.
+Default branch -- > Master 
+master & main branches are called as long living branches
+dev, qa, hotfix, release branches are called as short-living branches.
+
+git branch: to list the branches
+git branch movies: to create a branch called movies
+git checkout movies: to switch to branch called movies
+git checkout -b recharge: to create and switch at a time.
+
+
+
+
+MERGE: Used to merge file blw two branches
+
+git checkout master
+git merge movies
+git merge train
+
+
+REBASE: Used to merge file blw two branches
+git rebase recharge
+git rebase dth
+
+
+
+HISTORY:
+
+ 1  mkdir paytm
+    2  cd paytm/
+    3  yum install git -y
+    4  git --version
+    5  git -v
+    6  ls -al
+    7  git init
+    8  ls -al
+    9  touch file1
+   10  git statsu
+   11  git status
+   12  git add file1
+   13  git config user.name "raham"
+   14  git config user.email "raham@gmail.com"
+   15  git commit -m "commit-1" file1
+   16  git branch
+   17  git branch movies
+   18  git branch
+   19  ll
+   20  git checkout movies
+   21  git branch
+   22  touch movies{1..5}
+   23  git add movies*
+   24  git config user.name "dev1"
+   25  git config user.email "dev1@gmail.com"
+   26  git commit -m "movies-v.1.0" movies*
+   27  git log
+   28  git show 79b58f79bed0d748b4e8b3390443ed67133be9da
+   29  ll
+   30  git checkout master
+   31  ll
+   32  git checkout movies
+   33  git branch
+   34  git branch train
+   35  git branch
+   36  git checkout train
+   37  ll
+   38  touch train{1..5}
+   39  ll
+   40  git status
+   41  git add *
+   42  git config user.name "dev2"
+   43*
+   44  git commit -m "train-v.1.0" *
+   45  git branch
+   46  git checkout -b recharge
+   47  git branch
+   48  ll
+   49  git branch
+   50  git log
+   51  touch recharge{1..5}
+   52  git add *
+   53  git config user.name "dev3"
+   54  git config user.email "dev3@gmail.com"
+   55  git commit -m "recharge-v.1.0" *
+   56  ll
+   57  git checkout master
+   58  git branch
+   59  ll
+   60  git checkout -b dth
+   61  git branch
+   62  ll
+   63  touch dth{1..5}
+   64  git add *
+   65  git config user.name "dev4"
+   66  git config user.email "dev4@gmail.com"
+   67  git commit -m "dth-v.1.0" *
+   68  git branch
+   69  git checkout master
+   70  ll
+   71  git merge movies
+   72  ll
+   73  git merge train
+   74  ll
+   75  git rebase recharge
+   76  ll
+   77  git rebase dth
+   78  ll
+   79  git remote add origin https://github.com/kodaganivshnuvardhan/paytm.git
+   80  ls -al
+   81  git push origin master
+   82  ll
+   83  git checkout dth
+   84  git branch
+   85  git branch -D master
+   86  git branch
+
+ 
