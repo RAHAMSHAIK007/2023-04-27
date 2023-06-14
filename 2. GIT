@@ -211,4 +211,206 @@ HISTORY:
    85  git branch -D master
    86  git branch
 
+ ======================================================================
  
+ 14-06-2023: DAY-03: PULL, PUSH, REVERT, CHERRYPICK, STASH & SOME UI CONECOTS OF GITHUB
+ 
+ REVERT: To undo the merging of two branches
+git revert branchname
+
+CHERRY-PICK: To MERGE SPECIFIC FILES 
+git cherry-pick commit-id
+
+STATSH: To hide the un committed files/to save the work temperorly
+git stash	: to hide the tracked files
+git stash apply	: it will show the hidede file
+git stash list	: it shows the list of stashes
+git stash pop	: remove last stash
+git statsh clear: remove all the stashes
+
+PUSH: to send files from local to central repo
+git push origin branchname
+
+PULL: it will get changes from central to local.
+git pull origin branchname
+
+HISTORY:
+
+1  mkdir paytm
+    2  cd paytm/
+    3  yum install git -y
+    4  git init
+    5  git branch
+    6  touch file1
+    7  git add file1
+    8  git config user.email "raham@gmail.com"
+    9  git config user.name  "raham"
+   10  git commit -m "raham commits" file1
+   11  git branch
+   12  git branch movies
+   13  git branch
+   14  git checkout movies
+   15  touch movies{1..5}
+   16  git add *
+   17  git config user.email "dev1@gmail.com"
+   18  git config user.name "dev1"
+   19  git commit -m "dev1 commits" *
+   20  git log
+   21  git branch
+   22  ll
+   23  git checkout -b train
+   24  ll
+   25  touch train{1..5}
+   26  git add *
+   27  git config user.email "dev2@gmail.com"
+   28  git config user.name "dev2"
+   29  git commit -m "dev2 commits" *
+   30  git status
+   31  ll
+   32  git checkout -b recharge
+   33  ll
+   34  touch recharge{1..5}
+   35  git add *
+   36  git config user.email "dev3@gmail.com"
+   37  git config user.name "dev3"
+   38  git commit -m "dev3 commits" *
+   39  ll
+   40  git checkout -b dth
+   41*
+   42  touch dth{1..5}
+   43  git add *
+   44  git config user.email "dev4@gmail.om"
+   45*
+   46  git commit -m "dev4 commits" *
+   47*
+   48  ll
+   49  git merge movies
+   50  git merge train
+   51  git rebase recharge
+   52  git rebase dth
+   53  ll
+   54  git remote add origin https://github.com/RAHAMSHAIK007/paytmrepositry.git
+   55  git push origin master
+   56  git branch
+   57  git push origin movies
+   58  git push origin recharge
+   59  git push origin train
+   60  ps
+   61  kill -9 6745 6744 6743
+   62  ps
+   63  git push origin train
+   64  git push origin dth
+   65  git branch
+   66  ll
+   67  git checkout movies
+   68  ll
+   69  touch movies{6..10}
+   70  git add *
+   71  git config user.email "dev1@gmail.om"
+   72  git config user.name "dev1"
+   73  git commit -m "dev1 2nd commits" *
+   74  git checkout master
+   75  ll
+   76  git merge movies
+   77  git revert movies
+   78  ll
+   79  git checkout movies
+   80  ll
+   81  git merge train
+   82  ll
+   83  git revert train
+   84  ll
+   85  git merge recharge
+   86  ll
+   87  git rebase recharge
+   88  ll
+   89  git rebase movies
+   90  ll
+   91  git checkout train
+   92  ll
+   93  git merge recharge
+   94  ll
+   95  git rebase recharge
+   96  ll
+   97  git revert recharge
+   98  ll
+   99  git branch
+  100  git branch -m recharge abcd
+  101  git branch
+  102  git branch -m abcd recharge
+  103  git branch
+  104  git branch -D recharge
+  105  git branch
+  106  git logs
+  107  git log
+  108  ll
+  109  cd
+  110  mkdir abcd
+  111  cd abcd/
+  112  git init
+  113  git branch -m branch1
+  114  touch file1
+  115  git add *
+  116  git commit -m "abcd" file1
+  117  git branch
+  118  git checkout -b branch2
+  119  ll
+  120  touch java{1..5}
+  121  git add *
+  122  git commit -m "java commits" *
+  123  touch python{1..5}
+  124  git add *
+  125  git commit -m "python commits" *
+  126  git log --oneline
+  127  git checkout branch1
+  128  ll
+  129  git cherry-pick 20d8330
+  130  ll
+  131  git cherry-pick 7f25b18
+  132  ll
+  133  cd
+  134  ll
+  135  mkdir raham
+  136  cd raham/
+  137  git init
+  138  touch file1
+  139  git add file1
+  140  ll
+  141  git stash
+  142  git commit -m "one" file1
+  143  touch file2
+  144  git add file2
+  145  git stash
+  146  ll
+  147  git stash apply
+  148  ll
+  149  git stash
+  150  ll
+  151  git stash list
+  152  git stash pop
+  153  git stash list
+  154  git stash clear
+  155  ll
+  156  cd ..
+  157  ll
+  158  cd paytm/
+  159  git branch
+  160  git checkout master
+  161  ll
+  162  cat dth1
+  163  git pull origin master
+  164  cat dth1
+  165  git pull origin master
+  166  cat dth1
+  167  git branch
+  168  git pull
+  169  cat dth
+  170  cat dth1
+  171  git pull origin master
+  172   git config pull.rebase true
+  173  git pull origin master
+  174  cat dth1
+  175  git pull origin master
+  176  cat dth1
+  177  history
+
