@@ -414,3 +414,66 @@ HISTORY:
   176  cat dth1
   177  history
 
+===========================================================================================
+
+DAY-04: MERGE CONFILICT, FORK , CLONE , UI TOPICS
+
+
+ 1  mkdir abcd
+    2  cd abcd/
+    3  yum install git -y
+    4  git init
+    5  vim file1
+    6  git add file1
+    7  git commit -m "dev-1 commits" file1
+    8  git branch
+    9  git branch -m master branch1
+   10  git branch
+   11  git checkout -b branch2
+   12  vim file1
+   13  git add file1
+   14  git commit -m "dev-2 commits" file1
+   15  cat file1
+   16  git checkout -b branch
+   17* git checkout  branch1
+   18  cat file1
+   19  git checkout branch1
+   20  cat file1
+   21  vim file1
+   22  git add file1
+   23  git commit -m "dev-1 2nd commits" file1
+   24  cat file1
+   25  git merge branch2
+   26  git diff file1
+   27  vim file1
+   28  git status
+   29  git add file1
+   30  git status
+   31  git commit -m "abcd" file1
+   32  git commit -m "abcd"
+   33  cat file1
+   34  git status
+   35  ll
+   36  git log
+   37  git log --oneline
+   38  git show bd46d71
+   39  git show bd46d71 --stat
+   40  git commit --amend -m "raham"
+   41  git log --oneline
+   42  git commit --amend -m "devops"
+   43  git log --oneline
+   44  git commit --amend -m "aws"
+   45  git log --oneline
+   46  git reset 7dcc9af
+   47  git log --oneline
+   48  git update-ref -d HEAD
+   49  git log --oneline
+   50  cd
+   51  ll
+   52  git clone https://github.com/RAHAMSHAIK007/ansible-jenkinsproject.git
+   53  ll
+   54  cd ansible-jenkinsproject
+   55  ll
+   56  git branch
+   57  cd
+   58  git clone https://github.com/RAHAMSHAIK
