@@ -1,0 +1,91 @@
+MAVEN:
+
+INSTALL:
+
+wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+tar -zxvf apache-maven-3.8.8-bin.tar.gz
+cd apache-maven-3.8.8-bin.tar.gz
+
+yum install java-1.8.0-openjdk -y
+java -version
+yum install maven -y
+mvn --version
+yum install tree -y
+
+WORKING WITH PROJECT:
+mvn archetype:generate	: To generate the project structure
+
+Define value for property 'groupId': raham
+Define value for property 'artifactId': swiggy
+Define value for property 'version' 1.0-SNAPSHOT: :
+Define value for property 'package' raham: : devops
+
+mvn compile: to compile the code (.java=.class)
+mvn test: to test the code (Apptest.java=Apptest.class)
+mvn package: to generate jar file on the project folder
+mvn install: to generate jar file on the maven folder
+mvn clean: to clear the source code
+
+mvn clean package: to will do the above actions
+
+HISTORY:
+
+ 1  wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+    2  ll
+    3  tar -zxvf apache-maven-3.8.8-bin.tar.gz
+    4  ll
+    5  cd apache-maven-3.8.8
+    6  ll
+    7  mvn archetype-generate
+    8  yum install java-1.8.0-openjdk -y
+    9  java -version
+   10  yum install maven -y
+   11  maven --version
+   12  mvn --version
+   13  mvn archetype-generate
+   14  ll
+   15  mvn archetype-generate
+   16  mvn archetype:generate
+   17  ll
+   18  cd swiggy/
+   19  ll
+   20  yum install tree -y
+   21  tree
+   22  cat src/main/java/devops/App.java
+   23  tree
+   24  mvn compile
+   25  tree
+   26  mvn test
+   27  tree
+   28  mvn package
+   29  tree
+   30  cd target/
+   31  ll
+   32  cd ..
+   33  ll
+   34  mvn install
+   35  cd /root/.m2/repository/raham/swiggy/
+   36  ls
+   37  ls 1.0-SNAPSHOT/
+   38  mvn test
+   39  cd
+   40  ll
+   41  cd apache-maven-3.8.8/
+   42  ll
+   43  cd swiggy/
+   44  ll
+   45  mvn clean
+   46  ll
+   47  mvn compile
+   48  mvn test
+   49  tree
+   50  mvn package
+   51  tree
+   52  mvn install
+   53  ll
+   54  mvn clean
+   55  ll
+   56  mvn install
+   57  tree
+   58  ll
+   59  history
