@@ -191,7 +191,7 @@ cat /etc/passwd: to see the users list.
 user -- > GROUP & FOLDER
 
 cat /etc/group: to see the groups list.
-ls /home: to show user folder on home 
+ll /home: to show user folder on home 
 id raham: to show the user info
 passwd raham: to assign password for user
 
