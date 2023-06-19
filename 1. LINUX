@@ -1,4 +1,4 @@
-LINUX: Free and Open-source OS
+Jun-05 LINUX: Free and Open-source OS
 OS: Operating system -- > communication blw user & system.
 
 TYPES OF OS:
@@ -56,7 +56,7 @@ It will hang very rarely.
 
 ===========================================================================
 
-DAY-02: SERVER & COMMANDS
+Jun-06 DAY-02: SERVER & COMMANDS
 
 MOBAXTERM LINK: https://download.mobatek.net/2312023031823706/MobaXterm_Portable_v23.1.zip
 
@@ -112,7 +112,7 @@ echo "hai raham" > file3
 ===============================================================
 
 
-DAY-03:
+Jun-07 DAY-03:
 
 STATIC: We can't modify
 DYNAMIC: We can mofify
@@ -176,7 +176,7 @@ yum install lshw -y	: to install the package
 lshw			: to show the hardware information.
 ====================================================================================================================
 
-
+Jun-08 DAY-04:
 USERS: 
 ec2-user: he is the default user.
 
@@ -259,7 +259,7 @@ userdel raham : to delete raham user
 
 =======================================================================================================
 
-DAY-05:
+Jun-09 DAY-05:
 
 
 GREP : Global Regular Expression Print
