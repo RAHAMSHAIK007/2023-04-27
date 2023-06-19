@@ -1,0 +1,94 @@
+19-06-2023: intro, setup, ci, custom workspace, shell 
+
+CI - CONTINOUS INTEGRATION (BUILD + TEST) = OLD CODE WITH NEW CODE
+CD - CONTINOUS DELIVERY		: Deployment to production is manual
+CD - CONTINOUS DEPLOYMET	: Deployment to production is automated
+
+ENV:
+DEV	: DEVELOPERS
+TEST	: TESTER
+STAGING	: BEFORE PRODUCTION
+UAT	: CLIENT
+PROD	: USERS (LIVE)
+
+PRE/NON PROD: DEV, TEST, UAT, STATING.
+HIGH AVAILABILTY - MORE THAN ONE SERVER. (ONE -1A, TWO - 1B)
+
+PIPELINE: 
+SERIES OF EVENTS INTERNINKED WITH EACH OTHER.
+STEP BY STEP EXECUTION OF A PROCESS.
+
+JENKINS: PORT - 8080
+
+SETUP:
+STEP-1: GETTING REP0 (jenkins.io -- > downloads -- > Redhat)
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+STEP-2: INSTALLING JAVA 11
+amazon-linux-extras install java-openjdk11 -y
+
+STEP-3: INSTALLING GIT JENKINS MAVEN 
+yum install git maven jenkins -y
+
+STEP-4: STARTING THE SERVICE (any service will be on stopped state when its installed)
+systemctl start jenkins
+systemctl status jenkins
+
+STEP-5: CONNECTING TO JENKINS
+Public-ip:8080 -- > browser
+
+
+CUSTOM WORKSPACE: it will gives the output on our desired location.
+
+mkdir -p swiggy/jenkinsbuilds/
+cd /root/swiggy/jenkinsbuilds
+
+jenkins ui -- > jobname -- > configure -- > advance -- > custom workspace -- > /root/swiggy/jenkinsbuilds -- > save
+chown jenkins:jenkins /root
+chown jenkins:jenkins /root/*
+
+HISTORY:
+
+  1    sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    2    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+    3  amazon-linux-extras install java-openjdk11 -y
+    4  java -version
+    5  yum install git maven jenkins -y
+    6  systemctl start jenkins
+    7  systemctl status jenkins
+    8  cat /var/lib/jenkins/secrets/initialAdminPassword
+    9  cd /var/lib/jenkins/workspace/job1
+   10  ll
+   11  java -version
+   12  ll
+   13  ls -ltrh
+   14  pwd
+   15  cd
+   16  ll
+   17  mkdir -p swiggy/jenkinsbuilds
+   18  ll
+   19  pwd
+   20  cd swiggy/jenkinsbuilds/
+   21  pwd
+   22  cd /
+   23  ll
+   24  chown jenkins:jenkins root/
+   25  ll
+   26  cd root/
+   27  ll
+   28  cd /
+   29  chown jenkins:jenkins root/*
+   30  ll
+   31  cd /root/
+   32  ll
+   33  cd swiggy/
+   34  ll
+   35  chown jenkins:jenkins jenkinsbuilds/
+   36  ;;
+   37  ll
+   38  cd jenkinsbuilds/
+   39  pwd
+   40  ll
+   41  history
+=====================================================================================================================================================================
