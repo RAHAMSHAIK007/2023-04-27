@@ -92,3 +92,29 @@ HISTORY:
    40  ll
    41  history
 =====================================================================================================================================================================
+21-06=2023: PARAMETERS, VARIABLES
+
+Parameters are the inputs given by the user while building.
+
+1. USER DEFINED PARAMETERS: this parameters can be given by user only.
+
+a. Choice parameter: used when we have multiple options to generate a build but need to use only on specific one.
+b. String Parameter: it passess user input in single line.
+c. Multi Line string parameter: it passess user input in Multi line.
+d. File Parameter: It is used to build local files on jenkins.
+e. Boolean Parameter: it is used for yes or no options.
+
+2. VARIABLES: which will store the values & changes as per the time.
+
+a. USER DEFINED VARS: 
+1. LOCAL VARS: it will work inside a job
+
+name=siva
+loc=hyderabad
+echo "hai all my name is $name, $name is comming from $loc"
+
+
+2. GLOBAL VARS: it will work outside of a job
+Dashboard -- > Manage Jenkins -- > System -- > Environment vars -- > add 
+
+b. JENKINS ENVIRONMENT VARS: it can be defined by user
