@@ -118,3 +118,32 @@ echo "hai all my name is $name, $name is comming from $loc"
 Dashboard -- > Manage Jenkins -- > System -- > Environment vars -- > add 
 
 b. JENKINS ENVIRONMENT VARS: it can be defined by user
+
+==================================================================
+
+DAY-03: 
+
+CRONJOB: To schedule the works
+
+*	: Minutes
+*	: Hours
+*	: Date
+*	: Month
+*	: day (0=sun)
+
+9:00 am 23 : 0 9 23 6 5
+10:30 pm 22: 30 22 22 6 4
+
+POLLSCM: It will set a time limit if the source code change on that time it will build.
+
+WEBHOOKS: If the developer changes the code then it will build at that point of time.
+
+THROTTLE BUILD: To restric the number of builds for time(M,H,D,W,M)
+
+PASSWORDLESS LOGIN: 
+cd /var/lib/jenkins
+vim config.xml -- > line 7 : true=false -- > :wq
+systemctl restart jenkins
+
+LINKED JOBS: one job is depending on another job.
+
