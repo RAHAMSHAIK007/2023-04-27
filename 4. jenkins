@@ -147,3 +147,307 @@ systemctl restart jenkins
 
 LINKED JOBS: one job is depending on another job.
 
+===================================================
+
+DAY-04:
+
+PIPELINE: 
+Series of events interlinked with each other.
+Step-by-step execution of a process.
+
+TYPES:
+1. SCRIPTED
+2. DECLARTIVE  -- > SHORTCUT: PASSS
+
+
+examples:
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh 'touch file1'
+            }
+        }
+    }
+}
+
+-----------------------
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh 'touch file1'
+            }
+        }
+        stage('two') {
+            steps {
+                sh 'lscpu'
+            }    
+        }
+    }
+}
+
+---------------------------
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh 'touch file1'
+            }
+        }
+        stage('two') {
+            steps {
+                sh 'lscpu'
+            }    
+        }
+        stage('three') {
+            steps {
+                sh 'lsmem'
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+
+PIPELINE AS A CODE: Executing mutiple actions on single stage.
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh 'touch file1'
+                sh 'lscpu'
+                sh 'lsmem'
+            }
+        }
+    }
+}
+
+
+PIPELINE AS A CODE ON MULTI STAGE:
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh 'touch file1'
+                sh 'lscpu'
+                sh 'lsmem'
+            }
+        }
+        stage('two') {
+            steps {
+                sh 'touch file2'
+                sh 'free'
+            }
+        }
+    }
+}
+
+====================================================================================
+
+PIPELINE AS A CODE OVER SINGLE SHELL:
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('one') {
+            steps {
+                sh '''
+                lscpu
+                lsmem
+                free
+                '''
+            }
+        }
+    }
+}
+
+====================================================================================================
+
+VARS ON PIPELINE:
+
+pipeline {
+   agent any
+   environment {
+       name = 'raham'
+   }
+   stages {
+       stage('ENV') {
+           steps {
+               sh 'echo "${BUILD_ID}"'
+               sh 'echo "${JOB_NAME}"'
+               sh 'echo "${name}"'
+           }
+       }
+   }
+}
+
+
+pipeline {
+   agent any
+   environment {
+       name = 'raham'
+       loc= 'hyd'
+   }
+   stages {
+       stage('ENV') {
+           steps {
+               sh 'printenv'
+           }
+       }
+   }
+}
+
+===============================================================================
+
+pipeline {
+   agent any
+   
+       parameters {
+           choice(name: 'server', choices: ['a','b','c'], description: "")       }
+   stages {
+       stage('parameters') {
+           steps {
+               echo 'this is my prod stage'
+           }
+       }
+   }
+}
+
+
+
+pipeline {
+   agent any
+       parameters {
+           booleanParam(name: 'db', defaultValue: true, description: "")
+       }
+   stages {
+       stage('parameters') {
+           steps {
+               echo 'this isn my prod stage'
+           }
+       }
+   }
+}
+
+pipeline {
+   agent any
+    environment {
+           name = 'raham'
+       }
+       parameters {
+           string(name: 'person', defaultValue: 'raham shaik', description: "how are you")
+       }
+   stages {
+       stage('parameters') {
+           steps {
+               sh 'echo "${name}"'
+               sh 'echo "${person}"'
+           }
+       }
+   }
+}
+
+======================================================================================================
+
+pipeline {
+    agent any 
+    
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+
+
+HISTORY:
+
+  1  vim jenkins.sh
+    2  sh jenkins.sh
+    3  cd /var/lib/jenkins/
+    4  ll
+    5  vim config.xml
+    6  systemctl restart jenkins.service
+    7  systemctl status jenkins.service
+    8  cd /var/lib/jenkins/workspace/JOB-2/
+    9  ll
+   10  systemctl status jenkins.service
+   11  systemctl restart jenkins.service
+   12  chkconfig on jenkins
+   13  chkconfig --add jenkins
+   14  systemctl status jenkins.service
+   15  cd /var/lib/jenkins/workspace/ci-job/
+   16  ll
+   17  java -version
+   18  yum remove maven* java* -y
+   19  mvn --version
+   20  java -version
+   21  yum install java-1.8.0-openjdk -y
+   22  java -version
+   23  yum install maven -y
+   24  mvn --version
+   25  amazon-linux-extras install java-openjdk11 -y
+   26  mvn --version
+   27  java -version
+   28  update-alternatives --config java
+   29  java -version
+   30  mvn --version
+   31  git -v
+   32  java -version
+   33  mvn --version
+   34  git -v
+   35  systemctl restart jenkins.service
+   36  systemctl status jenkins.service
+   37  cd /var/lib/jenkins/workspace/
+   38  cd ci-job
+   39  ll
+   40  cd target/
+   41  ll
+   42  cd classes
+   43  ll
+   44  ls in/
+   45  ls in/javahome/
+   46  ls in/javahome/myweb/
+   47  ls in/javahome/myweb/controller/
+   48  cd
+   49  history
+   50  java -version
+   51  update-alternatives --config java
+   52  java -version
+   53  update-alternatives --config java
+   54  java -version
+
