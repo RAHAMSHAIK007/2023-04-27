@@ -450,4 +450,177 @@ HISTORY:
    52  java -version
    53  update-alternatives --config java
    54  java -version
+===================================
+day-05: postbuild & master slave
 
+POST-BUILD ACTIONS: the actions which comes after build.
+
+1- always: it will execute all the time 
+
+success cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+failuer cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+
+2-success: it will trigger if the build is success
+
+success cause:
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        success {
+            echo "hello world"
+        }
+    }
+}
+
+failuer cause:
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        always {
+            echo "hello world"
+        }
+    }
+}
+
+
+3-failuer: 
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                echo "hai all"
+            }
+        }
+    }
+    post {
+        failure {
+            echo "hello world"
+        }
+    }
+}
+
+pipeline {
+    agent any
+    
+    stages {
+        stage("one") {
+            steps {
+                ech "hai all"
+            }
+        }
+    }
+    post {
+        failure {
+            echo "hello world"
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+INPUT PARAMETER:
+
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/RAHAMSHAIK007/jenkins-java-project.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            input {
+                message 'can we test it'
+                ok 'yes'
+            }
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+
+=================================================================================================================
+
+MASTER-SLAVE:
+1. it will distribute the builds
+2. it will reduce load on master
+3. it will reduce the memory useage of master
+
+CREATE A SERVER AND INSTALL JAVA-11
+amazon-linux-extras install java-openjdk11 -y
+
+Dashboard  Manage Jenkins Manage Nodes & clouds -- > New node -- > Name -- > Permanent Agent
+
+Number of executors - no of builds paralelly (3)
+Remote root directory - where your builds will be stored (/tmp)
+Labels - assigning job to slave (swiggy)
+Usage - last options
+Launch method - last option
+host - 172.31.82.90 (privateip)
+Credentials -- > add -- > kind: ssh username with privatekey -- > username: ec2-usrer -- > privatekaey -- > add -- > pem -- > add -- > select ec2-user -- > Host Key Verification Strategy - last option
