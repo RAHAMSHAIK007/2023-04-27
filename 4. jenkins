@@ -624,3 +624,26 @@ Usage - last options
 Launch method - last option
 host - 172.31.82.90 (privateip)
 Credentials -- > add -- > kind: ssh username with privatekey -- > username: ec2-usrer -- > privatekaey -- > add -- > pem -- > add -- > select ec2-user -- > Host Key Verification Strategy - last option
+
+
+============================
+27-06-2023:
+
+RBAC	: ROLE BASED ACCESS CONTROL
+To restrict the jenkins Control for the users.
+authentication - who can signin
+authorization - who can work
+
+user-1: EXP (rajesh)           user-2:FRESHER (raju)	USER-3: FRESHER
+
+1. USERS: Dashboard -- > Manage Jenkins -- > security -- > Users (crearte 2 users)
+2. PLUGIN: Dashboard -- > Manage Jenkins -- > Plugins -- > Available plugins -- > Role-based Authorization Strategy  -- > install -- > goback to top
+3. Dashboard  -- > Manage Jenkins -- > Security -- > Authorization: Role-Based strategy
+4. ROLES : Dashboard  -- > Manage Jenkins -- > Security -- > Manage and Assign Roles -- >
+   create Fresher & Experience roles and give permissions(EXP: ADMIN, FRE: BUILD AND READ)
+5. ASSIGN ROLES: user-1: EXP           user-2:FRESHER
+
+==============================================================================
+LIST VIEW: USED TO SEPERATE/FILTER THE JOBS.
+MY VIEW: USED TO SHOW THE JOBS WHICH I HAVE PERMISSIONS.
+BUILD PIPELINE VIEW: To show the process of linked jobs -- > PLUGINS -- > AVAILABLE -- > Build Pipeline -- > INSTALL
