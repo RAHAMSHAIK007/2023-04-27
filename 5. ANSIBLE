@@ -1,0 +1,91 @@
+
+ANSIBLE:
+It's an automation configuration and management tool.
+
+configuration: hardware & software pros
+Management: update, install, uninstall ---
+
+code: yaml language (Yet another markup Language)
+year: 2012 -- > miache1 dehann -- > dependency: python 
+
+INFRA: Resources used to run our application on the cloud.
+ex: servers, vpc, asg, elb -----
+
+SETUP:
+ALL SERVERS: to communicate with all servers
+hostnamectl set-hostname
+sudo -i
+passwd root
+vim /etc/ssh/sshd_config
+38: PermitRootLogin yes  # uncomment
+63: PasswordAuthentication yes
+
+systemctl restart sshd
+systemctl status sshd
+==============================================================
+ANSIBLE SERVER:
+
+amazon-linux-extras install ansible2 -y
+yum install python python-pip python-level -y
+vim /etc/ansible/hosts
+
+[dev]
+172.31.86.81
+172.31.82.63
+
+[test]
+172.31.95.156
+172.31.83.100
+
+vim /etc/ansible/ansible.cfg (uncomment 14 & 22)
+
+=========================================================
+SSH CONNECTIONS: ANSIBLE SERVER
+
+ssh-keygen  --- > 4 ENTERS
+
+ssh-copy-id root@172.31.82.63 --- > yes --- > password
+ssh 172.31.82.63
+ctrl + d (logout)
+
+Note: If you do not log out and try to connect to the new server it won't connect
+
+Connect all the servers in this way
+
+cd .ssh --- > cat known_hosts
+
+====================================================================================================
+
+INVENTORY HOST PATTERN:
+
+ansible all --list-hosts          # shows all the servers
+ansible all[1] --list-hosts       # shows the 2nd server of all 
+ansible dev --list-hosts          # shows the dev server only
+ansible test --list-hosts         # shows the test server only
+ansible test[1] --list-hosts      # shows the test 2nd server only
+ansible all[1:3] --list-hosts     # shows server 2 to server 4
+ansible all[-1] --list-hosts      # shows the last server
+ansible all[-3] --list-hosts      # shows the last 3rd server
+
+====================================================================================================
+
+WORKING WITH ANSIBLE:
+
+1. ADHOC: SIMPLE LINUX COMMANDS USED FOR ONLY ONCE WORKS
+
+ansible all -a "ls"
+ansible: command line tool
+all  : servers 
+-a : arguments 
+ls : linux commands
+
+
+ansible all -a "touch file1"
+ansible all -a "yum install git -y"
+ansible all -a "yum install httpd -y"
+ansible all -a "systemctl start httpd -y"
+ansible all -a "systemctl start httpd"
+ansible all -a "systemctl status httpd"
+ansible all -a "useradd raham"
+ansible all -a "cat /etc/passwd"
+
