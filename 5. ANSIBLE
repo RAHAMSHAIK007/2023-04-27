@@ -1,4 +1,5 @@
 
+03-07-2023 DAY-01: INTRO, SETUP, INVENTORY & ADHOC
 ANSIBLE:
 It's an automation configuration and management tool.
 
@@ -89,3 +90,98 @@ ansible all -a "systemctl status httpd"
 ansible all -a "useradd raham"
 ansible all -a "cat /etc/passwd"
 
+====================================================================================================
+
+04-07-2023 DAY-02: MODULES, PLAYBOOKS
+
+2. MODULES: it is in the key-value format.
+ex: Name: raham 
+    Loc: Hyderabad
+it is reusable.
+
+
+ADHOC:  ansible all -a "yum install git -y"
+MODULE: ansible all -m yum -a "pkg=git state=present"   
+
+ansible all -m yum -a "pkg=git state=present" 
+ansible all -m yum -a "pkg=tree state=present" 		#(present=install)
+ansible all -m yum -a "pkg=tree state=latest"  		#(latest=update)
+ansible all -m yum -a "pkg=tree state=absent"  		#(absent=uninstall)
+ansible all -m yum -a "name=httpd state=present"
+ansible all -m service -a "name=httpd state=restarted"  #(restarted=restart)
+ansible all -m service -a "name=httpd state=stopped"    #(stopped=stop)
+ansible all -m user -a "name=vijayk state=present"
+
+Limitation:
+1. we cannot reuse the modules.
+2. we cannot execute multiple modules.
+
+PLAYBOOK:
+It's a collection of modules.
+here we can use multiple modules & we can reuse it.
+playbook is written on yaml language.
+it works on key-value and its extension (yaml/yml)
+
+
+ansible all -m yum -a "name=git state=present"   
+
+- hosts: all
+  tasks:
+    - name: Installing git
+      yum: name=git state=present
+
+
+- hosts: all
+  tasks:
+    - name: installing git
+      yum: name=git state=absent
+
+
+MULTITASKS:
+
+- hosts: all
+  tasks:
+    - name: installing httpd
+      yum: name=httpd state=present
+
+    - name: restarting httpd
+      service: name=httpd state=restarted
+
+    - name: create a user
+      user: name=rajini state=present
+
+HISTORY:
+ 100  ansible dev --list-hosts
+  101  ansible test --list-hosts
+  102  ansible test -a "yum install git -y"
+  103  ansible test -a "yum install tree -y"
+  104  ansible all -a "yum remove git* httpd* tree* -y"
+  105  ansible all -m yum -a "pkg=git state=present"
+  106  ansible all -a "git -v"
+  107  ansible all -m yum -a "pkg=tree state=present"
+  108  ansible all -a "tree --version"
+  109  ansible all -m yum -a "pkg=tree state=latest"
+  110  ansible all -m yum -a "pkg=tree state=present"
+  111  ansible all -m yum -a "pkg=tree state=latest"
+  112  ansible all -m yum -a "pkg=tree state=absent"
+  113  ansible all -m yum -a "name=httpd state=present"
+  114  ansible all -m yum -a "name=httpd state=restarted"
+  115  ansible all -m service -a "name=httpd state=restarted"
+  116  ansible all -m service -a "name=httpd state=stopped"
+  117  ansible all -m service -a "name=httpd state=restarted"
+  118  ansible all -m user -a "name=vijayk state=present"
+  119  ansible all -a "getent passwd"
+  120  vim raham.yml
+  121  ansible-playbook raham.yml
+  122  ansible all -a "yum remove git* httpd* tree* -y"
+  123  ansible-playbook raham.yml
+  124  cat raham.yml
+  125  vim raham.yml
+  126  ansible-playbook raham.yml
+  127  vim raham.yml
+  128  ansible-playbook raham.yml
+  129  cat raham.yml
+  130  vim raham.yml
+  131  ansible-playbook raham.yml
+  132  cat raham.yml
+  133  history
