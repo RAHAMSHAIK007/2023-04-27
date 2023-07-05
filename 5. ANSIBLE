@@ -185,3 +185,190 @@ HISTORY:
   131  ansible-playbook raham.yml
   132  cat raham.yml
   133  history
+========================================
+05-07-2023: day-03 -- > RAW, COMMAND, SHELL, TAGS VARIABLES & GATHERFACTS
+
+SHELL VS COMMAND VS RAW:
+
+- hosts: all
+  tasks:
+    - name: task-1
+      yum: name=git state=present
+
+    - name: task-2
+      shell: yum install httpd -y
+
+    - name: task-3
+      command: yum install tree -y
+
+    - name: task-4
+      raw: yum install java-1.8.0-openjdk -y
+
+- hosts: all
+  tasks:
+    - name: task-1
+      yum: name=git state=absent
+
+    - name: task-2
+      command: yum remove httpd* -y
+
+    - name: task-3
+      command: yum remove tree* -y
+
+    - name: task-4
+      command: yum remove java-1.8.0-openjdk* -y
+
+TAGS: it will execute/skip the particular task among multiple tasks.
+
+- hosts: all
+  tasks:
+    - name: task-1
+      yum: name=git state=present
+      tags: a
+
+    - name: task-2
+      shell: yum install httpd -y
+      tags: b
+
+    - name: task-3
+      command: yum install tree -y
+      tags: c
+
+    - name: task-4
+      raw: yum install java-1.8.0-openjdk -y
+      tags: d
+
+SINGLE TAG: ansible-playbook raham.yml --tags b
+MULTI TAGS: ansible-playbook raham.yml --tags b,c
+SKIP TAGS: ansible-playbook raham.yml --skip-tags "c"
+MULTI SKIP TAGS: SKIP TAGS: ansible-playbook raham.yml --skip-tags "c,d"
+
+VARIABLES: These will vary and it will store the value.
+
+DYNAMIC VARS: The vars which can be passed outside of the playbook during execution.
+SINGLE VARIABLE:
+- hosts: all
+  tasks:
+    - name: task-1
+      yum: name={{a}} state=present
+
+ansible-playbook raham.yml --extra-vars "a=tree"
+ansible-playbook raham.yml --extra-vars "a=docker"
+ansible-playbook raham.yml --extra-vars "a=java-1.8.0-openjdk"
+
+- hosts: all
+  tasks:
+    - name: task-1
+      yum: name={{a}} state=present
+    - name: task-2
+      yum: name={{b}} state=present
+ansible-playbook raham.yml --extra-vars "a=tree b=docker"
+
+STATIC VARIABLE: These variables are declared inside the playbook.
+
+- hosts: all
+  vars:
+    a: git
+    b: maven
+  tasks:
+    - name: task-1
+      yum: name={{a}} state=present
+    - name: task-2
+      yum: name={{b}} state=present
+
+- hosts: all
+  vars:
+    a: git
+    b: maven
+  tasks:
+    - name: task-1
+      yum: name={{a}} state=present
+      yum: name={{b}} state=present
+
+STOPPING FACTS:
+
+- hosts: all
+  gather_facts: false
+  vars:
+    a: git
+    b: maven
+  tasks:
+    - name: task-1
+      yum: name={{a}} state=present
+      yum: name={{b}} state=present
+
+
+HISTORY:
+138  vim raham.yml
+  139  ansible all --list-hosts
+  140  ansible -m ping all
+  141  ansible -m ping dev
+  142  ansible-playbook raham.yml
+  143  vim raham.yml
+  144  ansible-playbook raham.yml
+  145  cat raham.yml
+  146  ansible all -a "git -v"
+  147  ansible all -a "httpd -v"
+  148  ansible all -a "tree --version"
+  149  ansible all -a "java -version"
+  150  cat raham.yml
+  151  vim raham.yml
+  152  ansible-playbook raham.yml
+  153  vim raham.yml
+  154  ansible-playbook raham.yml
+  155  ansible all -a "java -version"
+  156  ansible all -a "tree --version"
+  157  ansible all -a "httpd -v"
+  158  ansible all -a "git -v"
+  159  vim raham.yml
+  160  ansible-playbook raham.yml
+  161  vim raham.yml
+  162  cat p
+  163  cat raham.yml
+  164  ansible-playbook raham.yml --tags b
+  165  cat raham.yml
+  166  ansible-playbook raham.yml --tags c,d
+  167  vim raham.yml
+  168  ansible all -a "yum remove git* httpd* java-1.8.0-openjdk* tree* -y"
+  169  cat raham.yml
+  170  ansible-playbook raham.yml --skip-tags "c"
+  171  vim raham.yml
+  172  ansible all -a "yum remove git* httpd* java-1.8.0-openjdk* tree* -y"
+  173  cat raham.yml
+  174  ansible-playbook raham.yml
+  175  vim raham.yml
+  176  ansible-playbook raham.yml
+  177  vim raham.yml
+  178  cat raham.yml
+  179  ansible-playbook raham.yml --extra-vars "a=docker"
+  180  ansible all -a "docker --version"
+  181  cat raham.yml
+  182  ansible-playbook raham.yml --extra-vars "a=java-1.8.0-openjdk"
+  183  ansible all -a "java -version"
+  184  ansible-playbook raham.yml --extra-vars "a=tree"
+  185  ansible all -a "tree --version"
+  186  cat raham.yml
+  187  vim raham.yml
+  188  ansible all -a "yum remove git* docker* httpd* java-1.8.0-openjdk* tree* -y"
+  189  cat raham.yml
+  190  ansible-playbook raham.yml --extra-vars "a=tree b=docker"
+  191  ansible all -a "tree --version"
+  192  ansible all -a "docker --version"
+  193  cat raham.yml
+  194  vim raham.yml
+  195  ansible-playbook raham.yml
+  196  cat raham.yml
+  197  vim raham.yml
+  198  ansible all -a "yum remove git* maven* -y"
+  199  cat raham.yml
+  200  vim raham.yml
+  201  cat raham.yml
+  202  ansible-playbook raham.yml
+  203  vim raham.yml
+  204  ansible-playbook raham.yml
+  205  cat raham.yml
+  206  ansible all -a "yum remove git* maven* -y"
+  207  vim raham.yml
+  208  ansible-playbook raham.yml
+  209  cat raham.yml
+
