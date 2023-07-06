@@ -372,3 +372,229 @@ HISTORY:
   208  ansible-playbook raham.yml
   209  cat raham.yml
 
+===================================================================================================
+06-7-2023 day-04: conditions, handlsers, lopps, roles and galaxy
+
+CLUSTER: group of nodes/servers.
+HOMOGENIUS CLUSTER: All servers are same flavour.
+HETROGENIS CLUSTER: All servers are different flavour.
+
+CONDITIONS: 
+
+- hosts: all
+  tasks:
+    - name: task-1
+      command: yum install tree -y
+      when: ansible_os_family == "RedHat"
+
+    - name: task-2
+      command: apt install tree -y
+      when: ansible_os_family == "Debian"
+
+HANDLERS: it will execute when called by other tasks.
+one task is depending on another task.
+
+- hosts: all
+  tasks:
+    - name: install httpd
+      command: yum install httpd -y
+      notify: restart httpd
+
+  handlers:
+    - name: restart httpd
+      command: systemctl restart httpd
+
+
+LOOPS: It will do operation recursively.
+
+- hosts: all
+  tasks:
+    - name: task1
+      yum: name={{item}} state=present
+      with_items:
+        - git
+        - maven
+        - docker
+        - tree
+        - java-1.8.0-openjdk
+
+
+- hosts: all
+  tasks:
+    - name: task2
+      user: name={{item}} state=present
+      with_items:
+        - vijay
+        - kiran
+        - bheem
+        - reviii
+        - jayshaa
+
+
+ROLES:
+It will create a directory structure for our playbooks.
+it will encapsulate the playbook.
+it will be used for the community as well.
+
+[root@ansible playbooks]# cat master.yml
+- hosts: all
+  roles:
+    - abc
+    - rolea
+
+cat roles/rolea/tasks/main.yml
+- name: task1
+  yum: name={{item}} state=absent
+  with_items:
+    - git
+    - maven
+    - docker
+    - tree
+    - java-1.8.0-openjdk
+
+ cat roles/abc/tasks/main.yml
+---
+- name: task2
+  user: name={{item}} state=absent
+  with_items:
+    - vijay
+    - kiran
+    - bheem
+    - reviii
+    - jayshaa
+
+
+GALAXY: it will store the roles of multiple users in a central place.
+
+ansible-galaxy search java
+ansible-galaxy install baztian.java
+ansible-galaxy search --author baztian
+
+HISTORY:
+
+ 211  vim raham.yml
+  212  ansible-playbook raham.yml
+  213  cat raham.yml
+  214  vim raham.yml
+  215  ansible all -a "yum remove tree* -y"
+  216  cat raham.yml
+  217  ansible-playbook raham.yml
+  218  cat raham.yml
+  219  vim raham.yml
+  220  cat raham.yml
+  221  ansible-playbook raham.yml
+  222  cat raham.yml
+  223  vim raham.yml
+  224  cat raham.yml
+  225  ansible all -a "yum remove tree* httpd* -y"
+  226  ansible-playbook raham.yml
+  227  ansible all -a "git -v && mvn --version && docker -v"
+  228  ansible all -a "git -v"
+  229  ansible all -a "docker -v"
+  230  ansible all -a "tree --version"
+  231  ansible all -a "mvn --version"
+  232  vim raham.yml
+  233  ansible-playbook raham.yml
+  234  ansible all -a "tree --version"
+  235  ansible all -a "mvn --version"
+  236  ansible all -a "docker -v"
+  237  vim raham.yml
+  238  ansible-playbook raham.yml
+  239  vim raham.yml
+  240  ansible-playbook raham.yml
+  241  ansible-playbook "cat /etc/passwd"
+  242  ansible all -a "cat /etc/passwd"
+  243  vim raham.yml
+  244  ansible-playbook raham.yml
+  245  vim raham.yml
+  246  rm -rf *
+  247  ll
+  248  mkdir playbooks
+  249  cd playbooks/
+  250  ll
+  251  vim master.yml
+  252  ll
+  253  mkdir -p roles/pkgs/tasks
+  254  yum install tree -y
+  255  tree
+  256  vim roles/pkgs/tasks/main.yml
+  257  tree
+  258  mkdir -p roles/user/tasks
+  259  tree
+  260  vim roles/user/tasks/main.yml
+  261  tree
+  262  cat master.yml
+  263  cat roles/user/tasks/main.yml
+  264  cat roles/pkgs/tasks/main.yml
+  265  vim roles/
+  266  vim master.yml
+  267  cat master.yml
+  268  cat roles/pkgs/tasks/main.yml
+  269  tree
+  270  ansible-playbook master.yml
+  271  vim master.yml
+  272  ansible-playbook master.yml
+  273  tree
+  274  mkdir -p roles/cpuinfo/tasks
+  275  vim roles/cpuinfo/tasks/main.yml
+  276  tree
+  277  vim master.yml
+  278  ansible-playbook master.yml
+  279  cat master.yml
+  280  tree
+  281  cd
+  282  cd playbooks/
+  283  ll
+  284  vim roles/pkgs/tasks/main.yml
+  285  vim roles/user/tasks/main.yml
+  286  vim master.yml
+  287  ansible-playbook master.yml
+  288  cd
+  289  rm -rf *
+  290  ll
+  291  mkdir playbooks
+  292  cd playbooks/
+  293  ll
+  294  vim master.yml
+  295  ll
+  296  mkdir -p roles/rolea/tasks
+  297  tree
+  298  vim roles/rolea/tasks/main.yml
+  299  tree
+  300  mkdir -p roles/abc/tasks
+  301  tree
+  302  vim roles/abc/tasks/main.yml
+  303  tree
+  304  vim master.yml
+  305  ansible-playbook master.yml
+  306  vim master.yml
+  307  ansible-playbook master.yml
+  308  ll
+  309  vim roles/rolea/tasks/main.yml
+  310  vim roles/abc/tasks/main.yml
+  311  vim master.yml
+  312  ansible-playbook master.yml
+  313  cd
+  314  cd playbooks/
+  315  cat master.yml
+  316  cat roles/rolea/tasks/main.yml
+  317  cat roles/abc/tasks/main.yml
+  318  cd
+  319  rm -rf *
+  320  ll
+  321  ansible-galaxy search java
+  322  ansible-galaxy install alikins.java
+  323  ansible-galaxy install alikins.jenkins
+  324  wget https://github.com/alikins/top_geerlingguy/archive/0.99.2.tar.gz
+  325  ansible-galaxy search java
+  326  ansible-galaxy install baztian.java
+  327  ls -al
+  328  cd .ansible
+  329  ll
+  330  cd roles/
+  331  ll
+  332  cd baztian.java/
+  333  ll
+  334  cat tasks/main.yml
+  335  cd
+  336  ansible-galaxy search --author baztion
