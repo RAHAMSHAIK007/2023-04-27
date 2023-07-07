@@ -598,3 +598,237 @@ HISTORY:
   334  cat tasks/main.yml
   335  cd
   336  ansible-galaxy search --author baztion
+==================================================================================
+
+DEBUG: Used to print the message
+
+- hosts: all
+  tasks:
+    - name: printing a msg
+      debug:
+        msg: "hello world"
+
+
+Redhat: yum/rpm
+Ubuntu: apt/apt-get
+Python: pip module
+
+Numpy & Pandas -- > libs 
+
+ansible all -a "yum install pip -y"
+
+
+- hosts: all
+  tasks:
+    - name: task-1
+      pip:
+        name: NumPy
+
+- hosts: all
+  tasks:
+    - name: task-1
+      pip:
+        name: Pandas
+
+COPY MODULE:
+ansible all -m copy -a "src=app.yml dest=/tmp"
+
+- hosts: all
+  tasks:
+    - name: copying the file
+      copy: src=app.yml dest=/root
+
+VAULT: 
+1. It can encrypt the data.
+2. It can restrict the user to run/access the playbook
+
+ansible-vault create creds.txt: to create a vault file
+ansible-vault edit creds.txt: to edit a vault file
+ansible-vault rekey creds.txt: to change the password for a vault file
+ansible-vault decrypt creds.txt: to decrypt the data in the vault file
+ansible-vault encrypt creds.txt: to encrypt the data in the vault file
+ansible-vault view creds.txt: to show the data without decrypt
+
+
+DEPLOYMENT: 
+
+- hosts: test
+  tasks:
+    - name: installing apache server
+      yum: name=httpd state=present
+
+    - name: activating apache server
+      service: name=httpd state=started
+
+    - name: git checkout
+      git:
+        repo: "https://github.com/CleverProgrammers/pwj-netflix-clone.git"
+        dest: "var/www/html"
+
+SETUP MODULE: To fetch the node information
+ansible -m setup dev[0]
+ansible -m setup dev[0] | grep -i hostname
+
+
+
+TOMCAT:
+
+- hosts: dev
+
+  tasks:
+    - name: download tomcat from dlcdn
+      get_url:
+        url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz"
+        dest: "/root/"
+
+    - name: untar the apache file
+      command: tar -zxvf apache-tomcat-9.0.70.tar.gz
+        #unarchive:
+        #src: "apache-tomcat-9.0.70.tar.gz"
+        #dest: "/root/"
+
+    - name: rename the tomcat
+      command: mv apache-tomcat-9.0.70 tomcat
+      tags: abc
+
+    - name: install java
+      command: yum install java-1.8.0-openjdk -y
+
+    - name: setting the roles in tomcat-user.xml file
+      template:
+        src: tomcat-users.xml
+        dest: /root/tomcat/conf/tomcat-users.xml
+
+    - name: delete two lines in context.xml
+      template:
+        src: context.xml
+        dest: /root/tomcat/webapps/manager/META-INF/context.xml
+
+    - name: start the tomcat
+      shell: nohup /root/tomcat/bin/startup.sh
+
+
+HISTOY:
+
+ 376  ansible-vault create creds.txt
+  377  ll
+  378  cat creds.txt
+  379  vim creds.txt
+  380  ansible-vault edit creds.txt
+  381  cat creds.txt
+  382  ansible-vault rekey creds.txt
+  383  ansible-vault decrypt creds.txt
+  384  cat creds.txt
+  385  ansible-vault encrypt creds.txt
+  386  cat creds.txt
+  387  ansible-vault show creds.txt
+  388  ansible-vault view creds.txt
+  389  cat creds.txt
+  390  vim dep-playbook.yml
+  391  ll
+  392  ansible-vault encrypt dep-playbook.yml
+  393  ll
+  394  ansible-playbook dep-playbook.yml
+  395  ansible-vault decrypt dep-playbook.yml
+  396  vim netflix.yml
+  397  ansible-playbook netflix.yml
+  398  vi netflix.yml
+  399  ansible-playbook netflix.yml
+  400  vim netflix.yml
+  401  ansible-playbook netflix.yml
+  402  vim netflix.yml
+  403  ansible-playbook netflix.yml
+  404  vim netflix.yml
+  405  ansible-playbook netflix.yml
+  406  cat netflix.yml
+  407  ansible all -a "rm -rf /var/www/html/*"
+  408  ansible all -a "ls /var/www/html/"
+  409  ll
+  410  vim netflix.yml
+  411  ansible-playbook netflix.yml
+  412  ssh test[1]
+  413  ansible all --list-hosts
+  414  ssh 172.31.85.206
+  415  ssh 172.31.87.158
+  416  ansible-playbook netflix.yml
+  417  ssh 172.31.85.206
+  418  vim netflix.yml
+  419  yum install httpd -y
+  420  systemctl start http
+  421  systemctl start httpd
+  422  systemctl status httpd
+  423  cd /var/www/html/
+  424  git clone https://github.com/VamsiKrishna2021/Eflyer.git
+  425  ll
+  426  cp Eflyer/* .
+  427  cp Eflyer/* . -R
+  428  cd Eflyer/
+  429  ll
+  430  mv -R * ../
+  431  mv -r * ../
+  432  mv * ../
+  433  y
+  434  yll
+  435  cd ..
+  436  ll
+  437  mv html/index.html .
+  438  ll
+  439  cd html
+  440  l
+  441  ll
+  442  mv *.html ../
+  443  ll
+  444  cd ..
+  445  ll
+  446  cd
+  447  ansible -m setup dev[0]
+  448  ansible -m setup dev[0] | grep -i memory
+  449  ansible -m setup dev[0] | grep -i cpus
+  450  ansible -m setup dev[0] | grep -i disk
+  451  ansible -m setup dev[0] | grep -i hostname
+  452  vim tomcat.yml
+  453  ansible-playbook tomcat.yml
+  454  vim tomcat.yml
+  455  ansible-playbook tomcat.yml
+  456  vim tomcat.yml
+  457  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.tar.gz
+  458  tar -zvvf apache-tomcat-9.0.76.tar.gz
+  459  tar -zxvf apache-tomcat-9.0.76.tar.gz
+  460  cd apache-tomcat-9.0.76/
+  461  ll
+  462  vim webapps/manager/META-INF/context.xml
+  463  cp webapps/manager/META-INF/context.xml /root/
+  464  cd
+  465  ll
+  466  rm -rf netflix.yml apache-tomcat-9.0.76.tar.gz creds.txt dep-playbook.yml
+  467  ll
+  468  cd apache-tomcat-9.0.76/
+  469  ll
+  470  vim conf/tomcat-users.x
+  471  vim conf/tomcat-users.xml
+  472  cd
+  473  cd -
+  474  cp conf/tomcat-users.xml /root/
+  475  cd
+  476  ll
+  477  cat tomcat
+  478  cat tomcat.yml
+  479  ansible-playbook tomcat.yml
+  480  ll
+  481  vim tomcat.yml
+  482  ansible-playbook tomcat.yml
+  483  ll
+  484  cat /etc/ansible/hosts
+  485  ll
+  486  git remote add origin https://github.com/RAHAMSHAIK007/all-setups.git
+  487  git init
+  488  git remote add origin https://github.com/RAHAMSHAIK007/all-setups.git
+  489  rm -rf apache-tomcat-9.0.76/
+  490  git add *
+  491  git commit -m "tomcat" *
+  492  git config user.name "raham"
+  493  git config user.email "raham@gmail.com"
+  494  git commit -m "tomcat" *
+  495  git push origin master
+  496  history
+[root@ansible ~]#
