@@ -37,3 +37,32 @@ apt = package manager = advance pacakger tool
 touch file{1..5}
 apt install apache2 maven -y
 ctrl p q: to exit from container
+
+
+HISTORY:
+  1  yum install docker -y
+    2  service start docker
+    3  service  docker start
+    4  service  docker status
+    5  docker images
+    6  docker pull ubuntu
+    7  docker images
+    8  df -h
+    9  docker pull amazonlinux2
+   10  docker pull amazonlinux
+   11  docker images
+   12  docker pull jenkins/jenkins:lts
+   13  docker images
+   14  docker run ubuntu
+   15  docker ps -a
+   16  docker run --name cont1 ubuntu
+   17  docker ps -a
+   18  docker run -it --name cont2 ubuntu
+   19  docker ps -a
+   20  docker images
+   21  docker commit c5589fa2f54a swiggy
+   22  docker images
+   23  docker run -it --name cont3 swiggy
+   24  docker images
+   25  docker run -it --name cont4 amazonlinux
+   26  history
