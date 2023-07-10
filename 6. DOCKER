@@ -1,0 +1,39 @@
+MONOLITIC: Multiple services on a single server with single db
+MICROSERVICES: Multiple services on Multiple servers with Multiple db
+
+SERVER = CONTAINERS = VM
+
+CONTAINER: It's like a VM without OS.
+IMAGE: It will have os/software & pkg.
+SERVER (AMI) = CONTAINER (image)
+DOCKER: It's a containerization tool.
+
+containerization: the process of packing an application with its dependencies.
+os level of virtualization.
+
+virtualization is Hardware level
+containerization is OS level
+
+INSTALL:
+yum install docker -y
+service start docker
+service status docker
+
+
+COMMANDS:
+docker images: to show a list of images
+docker pull ubuntu: to get ubuntu image
+docker run ubuntu: to create a container
+docker run -it --name cont2 ubuntu: it will create cont2 with interactive mode
+docker ps -a: to show list of containers
+
+OS LEVEL OF VIRTUALIZATION:
+cat /etc/os-release
+apt update -y
+apt upgrade -y
+
+apt = package manager = advance pacakger tool
+
+touch file{1..5}
+apt install apache2 maven -y
+ctrl p q: to exit from container
