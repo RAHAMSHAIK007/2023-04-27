@@ -66,3 +66,340 @@ HISTORY:
    24  docker images
    25  docker run -it --name cont4 amazonlinux
    26  history
+
+=======================================================
+11-07-2023: day 02
+
+DOCKER FILE:
+It is an automated way to create images.
+it will have components, which are in capital letters.
+in Dockerfile D must be capital.
+
+BUILD -- > To run the docker file
+command: docker build -t image_name path_of_Dockerfile
+
+FROM: base image
+RUN: executes Linux commands (image creation)
+CMD: executes Linux commands (container creation)
+ENTRYPOINT: It will override the command.
+COPY: copies the local file to container
+ADD: copies the internet file to container (or) extract the files
+WORKDIR: Opens the required folder 
+ENV: To pass the env variables (inside container)
+ARGS: To pass the env variables (outside container)
+labels: to attach label to conatiner
+
+
+EXAMPLE-1:
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install maven -y
+RUN apt install mysql-server -y
+
+EXAMPLE-2:
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install maven -y
+RUN apt install mysql-server -y
+CMD apt install default-jdk -y
+
+EXAMPLE-3:
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install maven -y
+RUN apt install mysql-server -y
+COPY abc.txt /tmp
+COPY raham.txt /tmp
+ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+
+EXAMPLE-4:
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install maven -y
+RUN apt install mysql-server -y
+COPY abc.txt /tmp
+COPY raham.txt /tmp
+ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
+WORKDIR /tmp
+ENV name raham
+LABEL email rahamshaik007
+
+HISTORY:
+
+  1  yum install docker -y
+    2  service start docker
+    3  service docker start
+    4  service docker status
+    5  docker images
+    6  docker pull ubuntu
+    7  docker images
+    8  docker pull amazonlinux
+    9  docker images
+   10  docker run -it --name cont1 ubuntu
+   11  docker ps -a
+   12  docker commit cont1 swiggy
+   13  docker run -it --name cont2 swiggy
+   14  vim Dockerfile
+   15  docker build -t swiggy:v2 .
+   16  vim Dockerfile
+   17  docker build -t swiggy:v2 .
+   18  docker images
+   19  docker run -it --name cont3 swiggy:v2
+   20  docker images
+   21  vim Dockerfile
+   22  docker build -t swiggy:v2 .
+   23  docker images
+   24  docker run -it --name cont4 swiggy:v2
+   25  vim Dockerfile
+   26  docker build -t swiggy:v2 .
+   27  docker run -it --name cont5 swiggy:v2
+   28  vim Dockerfile
+   29  docker build -t swiggy:v2 .
+   30  docker run -it --name cont6 swiggy:v2
+   31  ll
+   32  vim abc.txt
+   33  ll
+   34  vim Dockerfile
+   35  docker build -t swiggy:v2 .
+   36  docker run -it --name cont7 swiggy:v2
+   37  docker ps
+   38  docker ps -a
+   39  vim Dockerfile
+   40  docker build -t swiggy:v2 .
+   41  docker run -it --name cont8 swiggy:v2
+   42  ll
+   43  vim raham.txt
+   44  ll
+   45  vim Dockerfile
+   46  docker build -t swiggy:v2 .
+   47  docker run -it --name cont9 swiggy:v2
+   48  vim Dockerfile
+   49  docker build -t swiggy:v2 .
+   50  docker run -it --name cont10 swiggy:v2
+   51  vim Dockerfile
+   52  docker build -t swiggy:v2 .
+   53  docker run -it --name cont11 swiggy:v2
+   54  docker ps
+   55  docker ps -a
+   56  docker ps
+   57  docker inspect cont11
+   58  cat Dockerfile
+   59  ll
+   60  rm -rf *
+   61  vim Dockerfile
+   62  cat Dockerfile
+   63  vim index.html
+   64  docker build -t devops:v1 .
+   65  docker images
+   66  docker run -it --name appcont -p 80:80 devops:v1
+   67  docker run -d --name appcont1 -p 81:80 devops:v1
+   68  docker ps
+   69  docker run -d --name appcont2 -p 80:82 devops:v1
+   70  docker run -itd --name appcont3 -p 82:80 devops:v1
+   71  docker run -itd --name appcont4 -p 80:85 devops:v1
+   72  docker logs appcont4
+   73  docker ps
+   74  systemctl restart docker
+   75  docker ps -a -q
+   76  docker stop $(docker ps -a -q)
+   77  docker rm $(docker ps -a -q)
+   78  docker ps -a
+   79  docker run -itd --name cont1 -p 80:80 devops:v1
+   80  docker run -itd --name cont2 -p 81:80 devops:v1
+   81  docker run -itd --name cont2 -p 82:80 devops:v1
+   82  docker run -itd --name cont3 -p 83:80 devops:v1
+   83  history
+
+
+DEPLOYMENT:
+
+Dockerfile
+FROM ubuntu
+RUN apt-get update -y
+RUN apt-get install apache2 -y
+COPY index.html /var/www/html/
+CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+
+CODE:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>DevOps By Raham V:2.0</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
+
+====================
