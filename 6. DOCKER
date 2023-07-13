@@ -403,3 +403,123 @@ window.onclick = function(event) {
 </html>
 
 ====================
+
+DAY-04: 13-07-2023 COMPOSE
+
+DOCKER COMPOSE:
+
+It is a tool used to build, run and ship multiple containers for application.
+It is used to create multiple containers in a single host.
+It used the YAML file to manage multi containers as a single service.
+The Compose file provides a way to document and configure all of the application’s service dependencies (databases, queues, caches, web service APIs, etc). 
+
+COMPOSE/DOCKER COMPOSE FILE: (yml=yaml)
+We provide details about services.
+ex: image, port, volume ----
+
+INSTALLATION:
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+ls /usr/local/bin/
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose version
+
+stop vs kill:
+it will wait a few sec to stop the running process
+it won't wait to stop the process 
+
+WORKING:
+
+version: '3'
+services:
+  movies:
+    image: paymovies:v1
+    ports:
+      - "90:80"
+  train:
+    image: paytrain:v1
+    ports:
+      - "91:80"
+  dth:
+    image: paydth:v1
+    ports:
+      - "92:80"
+  recharge:
+    image: payrecharge:v1
+    ports:
+      - "93:80"
+
+
+HISTORY:
+ 1  docker images
+    2  docker run -itd --name movies -p 90:80 paymovies:v1
+    3  LL
+    4  ll
+    5  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/                                                                                                                                                                                                                                       local/bin/docker-compose
+    6  ls /usr/local/bin/
+    7  sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    8  sudo chmod +x /usr/local/bin/docker-compose
+    9  docker-compose version
+   10  docker ps
+   11  docker stop 272acc16526a
+   12  docker start 272acc16526a
+   13  docker kill 272acc16526a
+   14  docker rm movies
+   15  docker ps -a
+   16  vim docker-compose.yml
+   17  ll
+   18  docker-compose up -d
+   19  docker ps
+   20  vim docker-compose.yml
+   21  ll
+   22  vim index.html
+   23  docker images
+   24  docker build -t paytrain:v1 .
+   25  docker images
+   26  vim docker-compose.yml
+   27  docker-compose up -d
+   28  docker ps
+   29  vi index.html
+   30  docker build -t paydth:v1 .
+   31  docker images
+   32  vim docker-compose.yml
+   33  docker-compose up -d
+   34  docker ps
+   35  vim index.html
+   36  ll
+   37  docker run -t payrecharge:v1 .
+   38  docker build -t payrecharge:v1 .
+   39  docker images
+   40  vim docker-compose.yml
+   41  docker-compose up -d
+   42  docker ps
+   43  docker-compose down
+   44  docker ps
+   45  docker-compose up -d
+   46  docker ps
+   47  docker run cont1
+   48  docker run -d --name cont1 ubuntu
+   49  docker run -d --name cont2 ubuntu
+   50  docker run -d --name cont3 ubuntu
+   51  docker ps
+   52  docker ps -a
+   53  docker-compose ps -a
+   54* docker p
+   55  docker-compose images
+   56  docker images
+   57  docker-compose logs
+   58  docker-compose events
+   59  vim docker-compose.yml
+   60  docker-compose stop
+   61  vim docker-compose.yml
+   62  docker-compose stop
+   63  vim docker-compose.yml
+   64  docker-compose stop
+   65  vim docker-compose.yml
+   66  docker ps
+   67  docker kill 2932b0073234
+   68  docker ps
+   69  docker-compose up -d
+   70  docker ps
+   71  cat docker-compose.yml
