@@ -523,3 +523,61 @@ HISTORY:
    69  docker-compose up -d
    70  docker ps
    71  cat docker-compose.yml
+
+================================================================================
+17-07-2023: Docker swarm, docker hub
+
+  1  docker swarm init --advertise-addr 172.31.27.75
+    2  docker node ls
+    3  docker ps -a
+    4  docker run -itd --name cont1 ubuntu 
+    5  vim Dockerfile
+    6  vim index.html
+    7  docker build -t img:v1 .
+    8  docker images
+    9  docker tag img:v1 rahamshaik/rahamnewapp
+   10  docker images
+   11  docker push rahamshaik/rahamnewapp
+   12  docker login 
+   13  docker push rahamshaik/rahamnewapp
+   14  docker service create --name raham --replicas 6 --publish 80:80 rahamshaik/rahamnewapp:latest
+   15  docker ps -a
+   16  docker service ls
+   17  docker service raham ps 
+   18  docker service ps raham
+   19  docker service ls
+   20  vim index.html 
+   21  docker build -t image:v2 .
+   22  docker images
+   23  docker tag img:v2 rahamshaik/rahamnewapp
+   24  docker tag image:v2 rahamshaik/rahamnewapp
+   25  docker images
+   26  docker push rahamshaik/rahamnewapp
+   27  docker service create --name raham2 --replicas 5 --publish 81:80 rahamshaik/rahamnewapp:latest
+   28  docker service ls
+   29  docker service raham2 scale=10
+   30  docker service scale raham2=10
+   31  docker service ls
+   32  docker service scale raham2=20
+   33  docker service scale raham2=10
+   34  docker service ps raham2
+   35  docker service logs raham2
+   36  docker node ls
+   37  docker node rm joe5t7e970tntz2phruzoeukc
+   38  docker node ls
+   39  docker ps
+   40  docker top cb2f4997df2d
+   41  docker ps -a
+   42  docker stop $(docker ps -a -q)
+   43  docker ps -a
+   44  docker service rm raham
+   45  docker service rm raham2
+   46  docker ps -a
+   47  docker run -it --name jenkins -p 8080:8080 jenkins/jenkins:lts
+   48  docker pull tomcat 
+   49  yum install docker -y
+   50  systemctl start docker
+   51  systemctl status docker
+   52  hostnamectl set-hostame manager
+   53  hostnamectl set-hostname manager
+   54  sudo -i
