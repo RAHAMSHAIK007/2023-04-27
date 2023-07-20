@@ -1,0 +1,83 @@
+DAY-01: 
+
+K8S:
+
+vim minikunbe.sh
+
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install curl wget apt-transport-https -y
+sudo curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+sudo chmod +x /usr/local/bin/minikube
+sudo minikube version
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+sudo minikube start --driver=docker --force
+
+imperative method: we use commands to create pod
+kubectl run pod1 --image nginx
+kubectl: clt
+run: create 
+pod1: pod name
+nginx: image
+
+kubectl get pods
+kubectl get pod
+kubect1 get po
+kubect1 get po -o wide
+kubectl describe pod pod1 
+
+Declarivte method: we use file (manifest) to create pod
+manifest file is on yaml format.
+
+vim pod.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod3
+spec:
+  containers:
+    - name: cont1
+      image: rahamshaik/moviesrepopaytm:latest
+
+kubectl create -f pod.yml
+kubectl delete pod pod3
+
+
+DRAWBACKS:
+1. if a pod is delete we cant get back.
+
+HISTORY:
+1  ll
+    2  mkdir k8s
+    3  cd k8s/
+    4  vim minikube.sh
+    5  sh minikube.sh
+    6  minikube status
+    7  kubectl get node
+    8  kubectl run pod1 --image nginx
+    9  kubectl get pods
+   10  kubectl get pod
+   11  kubectl get po
+   12  kubectl run pod2 --image rahamshaik/moviesrepopaytm:latest
+   13  kubectl get po
+   14  kubectl get po -o wide
+   15  kubectl describe pod pod1
+   16  vim pod.yml
+   17  kubectl create -f pod.yml
+   18  vim pod.yml
+   19  vim pod.yml
+   20  kubectl create -f pod.yml
+   21  kubectl get po
+   22  kubectl describe pod pod3
+   23  kubectl get po
+   24  kubectl delete pod pod3
+   25  kubectl get po
+   26  cat pod.yml
+   27  history
