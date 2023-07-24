@@ -81,3 +81,207 @@ HISTORY:
    25  kubectl get po
    26  cat pod.yml
    27  history
+
+
+========================================================
+
+DAY-03:
+
+RS: it will create multiple replicas of same pod
+if we delete one pod it will create another
+by using labels we can identify all the replicas of pods.
+selector will select all the pods with same replicas.
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: rahamshaik/moviesrepopaytm:v2
+
+kubectl apply -f filename.yml
+
+kubectl get rs
+kubectl get rs -o wide
+kubectl describe rs swiggy-rs
+
+kubectl get po
+kubectl get po -o wide
+kubectl describe pod podname
+kubectl get po --show-labels
+kubectl delete po -l app=swiggy
+
+DRAWBACK:
+If we update the image replicaset will wont work here.
+
+DEPLOYMENT:
+It is more advance than RS.
+we use this on real deployment.
+
+deployment -- > replicaset -- > pods
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+
+kubectl apply -f filename.yml
+
+kubectl get deploy
+kubectl get deploy -o wide
+kubectl describe deploy swiggy-deploy
+kubectl delete deploy swiggy-deploy
+
+kubectl get po
+kubectl get po -o wide
+kubectl describe pod podname
+kubectl get po --show-labels
+kubectl delete po -l app=swiggy
+
+HISTORY:
+
+ 1  vim .bashrc 
+    2  source .bashrc 
+    3  vim kops.sh
+    4  sh kops.sh 
+    5  ls -a
+    6  vim .aws/config 
+    7  vim .aws/credentials 
+    8  sh kops.sh 
+    9  vim .aws/credentials 
+   10  sh kops.sh 
+   11  cat kops.sh 
+   12  export KOPS_STATE_STORE=s3://heera.k8s.local
+   13  kops validate cluster --wait 10m
+   14  kops get cluster
+   15  kubectl get no
+   16  vim abc.yml
+   17  kubectl api-resources
+   18  kubectl api-resources | grep -i replica
+   19  vim abc.yml 
+   20  cat abc.yml 
+   21  kubectl create -f abc.yml 
+   22  vim abc.yml 
+   23  kubectl create -f abc.yml 
+   24  vim abc.yml 
+   25  kubectl create -f abc.yml 
+   26  cat abc.yml 
+   27  vim abc.yml 
+   28  kubectl create -f abc.yml 
+   29  vim abc.yml 
+   30  kubectl create -f abc.yml 
+   31  vim abc.yml 
+   32  kubectl create -f abc.yml 
+   33  cat abc.yml 
+   34  kubectl delete rs swiggy-rs
+   35  vim abc.yml 
+   36  kubectl create -f abc.yml 
+   37  vim abc.yml 
+   38  kubectl create -f abc.yml 
+   39  vim abc.yml 
+   40  kubectl create -f abc.yml 
+   41  vim abc.yml 
+   42  kubectl create -f abc.yml 
+   43  kubectl get po
+   44  kubectl describe pod swiggy-rs-khghk
+   45  kubectl get po --show labels 
+   46  kubectl get po --show-labels 
+   47  kubectl run pod1 --image nginx
+   48  kubectl get po --show-labels 
+   49  kubectl run pod2 --image nginx
+   50  kubectl run pod3 --image nginx
+   51  kubectl get po --show-labels 
+   52  kubectl delete pod --labels app=swiggy
+   53  kubectl delete pod app=swiggy
+   54  kubectl delete --help
+   55  kubectl delete pod -l app=swiggy
+   56  kubectl get po
+   57  kubectl delete pod pod1
+   58  kubectl get po
+   59  kubectl get rs 
+   60  kubectl get rs -o wide
+   61  kubectl describe rs swiggy-rs
+   62  kubectl get po
+   63  kubectl scale rs/swiggy-rs --replicas=10
+   64  kubectl get po
+   65  kubectl get po -o wide
+   66  kubectl delete pod2 pod3
+   67  kubectl delete pod pod2 pod3
+   68  kubectl get po -o wide
+   69  kubectl scale rs/swiggy-rs --replicas=20
+   70  kubectl get po -o wide
+   71  kubectl scale rs/swiggy-rs --replicas=5
+   72  kubectl get po -o wide
+   73  kubectl delete pod swiggy-rs-khghk
+   74  kubectl delete pod swiggy-rs-2fnf8
+   75  kubectl get po -o wide
+   76  cat abc.yml 
+   77  vim abc.yml 
+   78  kubectl create -f abc.yml 
+   79  kubectl get deploy
+   80  kubectl get deploy -o wide
+   81  kubectl describe deploy swiggy-deploy
+   82  kubectl describe deploy swiggy-deploy | grep -i image
+   83  kubectl edit deploy/swiggy-deploy
+   84  kubectl describe deploy swiggy-deploy | grep -i image
+   85  kubectl edit deploy/swiggy-deploy
+   86  kubectl describe deploy swiggy-deploy | grep -i image
+   87  kubectl get deploy
+   88  kubectl get rs
+   89  kubectl get pod
+   90  kubectl scale deploy/swiggy-deploy --replicas=10
+   91  kubectl get pod -o wide
+   92  cat abc.yml 
+   93  kubectl delete deploy swiggy-deploy
+   94  kubectl get rs
+   95  vim abc.yml 
+   96  kubectl create -f abc.yml 
+   97  kubectl get rs
+   98  kubectl edit rs/swiggy-rs
+   99  vim abc.yml 
+  100  kubectl create -f abc.yml 
+  101  kubectl delete rs swiggy-rs
+  102  kubectl create -f abc.yml 
+  103  kubectl get rs
+  104  kubectl edit rs/swiggy-rs
+  105  kubectl describe rs swiggy-rs | grep -i image
+  106  kubectl get po
+  107  kubectl describe pod swiggy-rs-6x9gc
+  108  kubectl delete rs swiggy-rs
+  109  kubectl describe pod swiggy-rs-6x9gc
+  110  kubectl delete rs swiggy-rs
+  111 
+  112  kubectl delete -h
+  113  kubectl delete --help
+  114  kops get cluster
+  115  kops delete cluster --name mtpk.k8s.local --yes
+  116  history
