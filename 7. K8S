@@ -326,3 +326,94 @@ chmod +x kubecolor
 mv kubecolor /usr/local/bin/
 kubecolor get po
 kubecolor get po -n kube-system
+
+
+HISTORY:
+
+    1  vim .bashrc
+    2  source .bashrc
+    3  vim kops.sh
+    4  sh kops.sh
+    5  vim kops.sh
+    6  sh kops.sh
+    7  cat kops.sh
+    8  export KOPS_STATE_STORE=s3://heera.k8s.local
+    9  kops validate cluster --wait 10m
+   10  kubectl get ns
+   11  kubectl run pod1 --image nginx
+   12  kubectl describe pod pod1
+   13  kubectl get po
+   14  kubectl get po -ns default
+   15  kubectl get po -n default
+   16  kubectl get po -n kube-node-lease
+   17  kubectl get po -n kube-public
+   18  kubectl get po -n kube-system
+   19  kubectl get po
+   20  kubectl get ns
+   21  kubectl create ns dev
+   22  kubectl get ns
+   23  kubectl config set-context --current-namespace=dev
+   24  kubectl config set-context --current --namespace=dev
+   25  kubectl config minify
+   26  kubectl config minify
+   27  kubectl config view --minify
+   28  kubectl config view --minify | grep -i ns
+   29  kubectl config view --minify | grep -i namespace
+   30  kubectl run dev1 --image nginx
+   31  kubectl run dev2 --image nginx
+   32  kubectl run dev3 --image nginx
+   33  kubectl get po
+   34  kubectl create ns test
+   35  kubectl config set-context --current --namespace=test
+   36  kubectl config view --minify | grep -i namespace
+   37  kubectl get po
+   38  kubectl get po -n dev
+   39  kubectl get po -n dev --show-labels
+   40  vim abc.yml
+   41  kubectl create -f abc.yml
+   42  kubectl get rs
+   43  kubectl config set-context --current --namespace=dev
+   44  kubectl get rs
+   45  kubectl get rs -n test
+   46  kubectl get po -n test
+   47  kubectl get po -n test -l app=swiggy
+   48  kubectl describe pod swiggy-rs-h6ghx -n test
+   49  kubectl get ns
+   50  kubectl delete ns test
+   51  kubectl delete ns dev
+   52  kubectl get ns
+   53  kubectl config view --minify | grep -i namespace
+   54  kubectl config set-context --current --namespace=default
+   55  kubectl get ns
+   56  kubectl config view --minify | grep -i namespace
+   57  vim daemonset.yml
+   58  kubectl create -f daemonset.yml
+   59  kubectl get po
+   60  kubectl get po --all
+   61  kubectl get po -n --all
+   62  kubectl ap-resources
+   63  kubectl api-resources
+   64  kubectl get ds
+   65  kubectl get ds -n kube-system
+   66  vim daemonset.yml
+   67  kubectl get ds -n kube-system
+   68  alias kubectl="kubecolor"
+   69  command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
+   70  kubectl get po -n kube-system
+   71  kubecolor get po -n kube-system
+   72  vim .bashrc
+   73  source .bashrc
+   74  kubecolor get po -n kube-system
+   75   wget https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.t                                                                                                                                                                                                       ar.gz
+   76  ll
+   77  tar -zxvf kubecolor_0.0.25_Linux_x86_64.tar.gz
+   78  ll
+   79  ./kubecolor
+   80  kubecolor
+   81  chmod +x kubecolor
+   82  mv kubecolor /usr/local/bin/
+   83  ls /usr/local/bin/kubecolor
+   84  kubecolor get po
+   85  kubecolor get po -n kube-system
+   86  histroy
+
