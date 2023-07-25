@@ -85,7 +85,7 @@ HISTORY:
 
 ========================================================
 
-DAY-03:
+DAY-03: 24-07-2023: RS, DEPLOYMENT
 
 RS: it will create multiple replicas of same pod
 if we delete one pod it will create another
@@ -285,3 +285,44 @@ HISTORY:
   114  kops get cluster
   115  kops delete cluster --name mtpk.k8s.local --yes
   116  history
+
+
+=====================================================================================
+
+DAY-04: 25-07-2023: NAMESPACE, DEAMONSET, KUBECOLOR
+
+NAMESPACE: It is used to divide the cluster to multiple teams.
+dev team= dev namespace 
+test team= test namespace
+it is used to isloate the resources.
+
+default: if we create any resource it will go under default namespace
+kube-node-lease: if we take an object from another node it will store on this ns.
+kube-public: it will make the resource available for all users.
+kube-system: k8s will create its own resources for itself on this ns.
+
+kubectl get po -n default
+kubectl get po -n kube-node-lease
+kubectl get po -n kube-public
+kubectl get po -n kube-system
+
+
+
+kubectl config set-context --current --namespace=dev
+kubectl config view --minify
+kubectl config view --minify | grep -i namespace
+
+
+DAEMOSET: It will create one pod on all each node of the cluster.
+mainly we use if to create fluentd and elasticsearch pods to fetch logs.
+
+
+KUBECOLOR: To apply colors for the k8s
+
+wget https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.tar.gz
+tar -zxvf kubecolor_0.0.25_Linux_x86_64.tar.gz
+./kubecolor
+chmod +x kubecolor
+mv kubecolor /usr/local/bin/
+kubecolor get po
+kubecolor get po -n kube-system
