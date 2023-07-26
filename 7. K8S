@@ -417,3 +417,174 @@ HISTORY:
    85  kubecolor get po -n kube-system
    86  histroy
 
+==================================================
+DAY-05: 26-07-2023: SVC (CIP, NP, LB)
+
+SERVICE: it is used to expose an application.
+
+TYPES:
+1. CLUSTERIP: It will work inside the cluster.
+it will not expose to outer world.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: rahamshaik/trainservice:latest
+        ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sv1
+spec:
+  type: ClusterIP
+  selector:
+    app: swiggy
+  ports:
+    - port: 80
+
+DRAWBACK:
+We cannot use app outside.
+
+2. NODEPORT: It will expose our application in a particular port.
+Range: 30000 - 32767 (in sg we need to give all traffic)
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: rahamshaik/trainservice:latest
+        ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: abc
+spec:
+  type: NodePort
+  selector:
+    app: swiggy
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 31111
+
+DRAWBACK:
+PORT RESTRICTION.
+
+3. LOADBALACER: It will expose our app and distribute load blw pods.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: rahamshaik/trainservice:latest
+        ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: abc
+spec:
+  type: LoadBalancer
+  selector:
+    app: swiggy
+  ports:
+    - port: 80
+      targetPort: 80
+
+
+HISTORY:
+
+ 1  cat kops.sh
+    2  aws s3 ls
+    3  sh kops.sh
+    4  cat kops.sh
+    5  export KOPS_STATE_STORE=s3://heera.k8s.local
+    6   kops validate cluster --wait 10m
+    7  kubecolor get po
+    8  vim abc.yml
+    9  vim abc.yml
+   10  kubectl api-resources
+   11  kubectl api-resources | grep -i service
+   12  vim abc.yml
+   13  kubectl create -f abc.yml
+   14  kubecolor get svc
+   15  kubecolor get svc -o wide
+   16  kubecolor describe svc sv1
+   17  ll
+   18  kubecolor delete -f abc.yml
+   19  kubecolor get svc
+   20  kubecolor get deploy
+   21  vim abc.yml
+   22  kubecolor create -f abc.yml
+   23  kubecolor get svc
+   24  kubecolor get deploy
+   25  kubecolor get svc,deploy
+   26  kubecolor get svc,deploy,rs
+   27  kubecolor get deploy
+   28  kubecolor get rs
+   29  kubecolor get po
+   30  kubecolor get po -o wide
+   31  vim abc.yml
+   32  kubecolor apply -f abc.yml
+   33  vim abc.yml
+   34  vim .bashrc
+   35  source .bashrc
+   36  k get po
+   37  vim .bashrc
+   38  source .bashrc
+   39  k get po
+   40  vim .bashrc
+   41  kubecolor delete -f abc.yml
+   42  vim abc.yml
+   43  kubecolor create -f abc.yml
+   44  vim abc.yml
+   45  history
+
