@@ -1,0 +1,114 @@
+INFRA: RESOURCE USED TO RUN OUR APPLICATION.
+EX: SERVERS, ASG, ELB, VPC ----
+
+1. ON-PREM: IT WAS MANAGED BY OUR IT TEAM.
+2. CLOUD: CLOUD PROVIDERS (AWS, AZURE,GCP)
+
+INFRA IN CLOUD IS CREATED MANUALLY TILL NOW:
+LIMITATIONS:
+1. MISTAKES WILL HAPPEN.
+2. TAKES TIME.
+3. INFRA CREATION LATE.
+
+AUTOMATION:
+DEVOPS: TERRAFORM, PULUMI, CHEF, ANSIBLE ----
+CLOUD:
+AWS - CFT
+AZURE - ARM
+GCP - GDE
+
+HISTORY:
+
+MITCHEL HASIMOTO -- > 2011 : TUMBLR -- > NO RESPONSE
+YEAR: 2014
+LANGUAGE: GO LANG
+COMPANY: HASHICORP
+TYPE: FREE AND OPENSOURCE
+SPECIFICATION: INFRA CREATION
+WHO IT WORKS: CODE -- > HCL (HASHICORP CONFIGURATION LANGUAGE)
+
+ADVANTAGES:
+1. AUTOMATION
+2. TIME SAVING
+3. REUSEABLE 
+4. DRY RUN 
+5. CLOUD AGONISTIC
+
+installation:
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+
+PERMISSION:
+attach iam user creds to ec2
+
+CONFIGURATION FILE: It has information about our resource.
+EX: .tf, .tfvars 
+
+cat main.tf
+
+provider "aws" {
+region = "eu-west-1"
+}
+
+resource "aws_instance" "one" {
+count = 3
+ami = "ami-06935448000742e6b"
+instance_type = "t2.micro"
+}
+
+LIFECYCLE:
+terrafrom init: it will download provider plugins.
+terraform plan: it will create execution plan for resource.
+terraform apply: it will create the resource.
+terraform destroy: it will destroy the resource.
+
+STATE FILE: It will store the resource infromation which created by terraform.
+terrafrom state list: it will list resources inside the state file
+
+TARGET: It will destroy a particular resource in terraform
+terraform destroy -target="aws_instance.one[1]"
+
+HISTORY:
+
+
+    1  mkdir terraform
+    2  cd terraform/
+    3  sudo yum install -y yum-utils shadow-utils
+    4  sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+    5  sudo yum -y install terraform
+    6  terraform -v
+    7  cd
+    8  aws configure
+    9  cd terraform/
+   10  ll
+   11  vim main.tf
+   12  terraform init
+   13  terraform plan
+   14  terraform apply
+   15  vim main.tf
+   16  cd
+   17  vim .aws/config
+   18  cd terraform/
+   19  terraform apply
+   20  ll
+   21  cat terraform.tfstate
+   22  terraform state list
+   23  terraform destroy
+   24  cat terraform.tfstate
+   25  vim main.tf
+   26  terraform init
+   27  terraform plan
+   28  terraform apply
+   29  cat terraform.tfstate
+   30  terraform state list
+   31  cat main.tf
+   32  terraform state list
+   33  terraform destroy -target="aws_instance.one[1]
+   34  terraform destroy -target="aws_instance.one[1]"
+   35  terraform state list
+   36  terraform destroy -target="aws_instance.one[2]"
+   37  terraform state list
+   38  cat main.tf
+   39  history
+
