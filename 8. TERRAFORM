@@ -114,3 +114,142 @@ HISTORY:
    38  cat main.tf
    39  history
 
+====================================================================================
+
+OUTPUTS: It will print the resource outputs 
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0b915513496b814ce"
+instance_type = "t2.micro"
+tags = {
+Name = "raham-terra-server"
+}
+}
+
+output "raham" {
+value = [aws_instance.one.public_ip, aws_instance.one.private_ip, aws_instance.one.public_dns]
+}
+
+
+TERRAFORM REFRESH: it will refresh the state file and shows the objects existence.
+TERRAFORM TAINT: it will recreate specific resource.
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0b915513496b814ce"
+instance_type = "t2.micro"
+tags = {
+Name = "raham-terra-server"
+}
+}
+
+resource "aws_s3_bucket" "two" {
+bucket = "rahamterra443357-swiggy"
+}
+
+terraform taint aws_instance.one 
+terraform apply --auto-approve
+
+
+UNTAINT: To undo the tainting.
+terraform untaint aws_s3_bucket.two
+
+
+ALIAS & PROVIDERS:
+it is used to create multiple resource on multiple regions at a time.
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+
+resource "aws_instance" "one" {
+ami = "ami-0b915513496b814ce"
+instance_type = "t2.micro"
+tags = {
+Name = "raham-terra-server"
+}
+}
+
+provider "aws" {
+region = "eu-west-2"
+alias = "london"
+}
+
+resource "aws_instance" "two" {
+provider = aws.london
+ami = "ami-0b594cc165f9cddaa"
+instance_type = "t2.micro"
+tags = {
+Name = "raham-terra-server"
+}
+}
+
+HISTORY:
+
+ 1  mkdir terraform
+    2  cd terraform/
+    3  sudo yum install -y yum-utils shadow-utils
+    4  sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+    5  sudo yum -y install terraform
+    6  aws configure
+    7  vim mai.tf
+    8  vim main.tf
+    9  terraform init
+   10  terraform
+   11  terraform plan
+   12  terraform apply --auto-approve
+   13  vim main.tf
+   14  wq
+   15  terraform apply --auto-approve
+   16  vim main.tf
+   17  terraform apply --auto-approve
+   18  terraform destroy --auto-approve
+   19  vim main.tf
+   20  terraform apply --auto-approve
+   21  vim main.tf
+   22  cat main.tf
+   23  terraform apply --auto-approve
+   24  vim main.tf
+   25  terraform apply --auto-approve
+   26  vim main.tf
+   27  terraform state list
+   28  terraform refresh
+   29  terraform state list
+   30  vim main.tf
+   31  terraform apply --auto-approve
+   32  terraform state list
+   33  terraform taint aws_instance.one
+   34  terraform apply --auto-approve
+   35  terraform state list
+   36  terraform taint aws_s3_bucket.two
+   37  terraform apply --auto-approve
+   38  cat main.tf
+   39  terraform state list
+   40  terraform taint aws_s3_bucket.two
+   41  terraform untaint aws_s3_bucket.two
+   42  vim main.tf
+   43  terraform destroy --auto-approve
+   44  vim main.tf
+   45  terraform appl\y --auto-approve
+   46  terraform apply --auto-approve
+   47  terraform apply --auto-approve -lock=false
+   48  ps
+   49  kill -9 1427 1399 1433 1449 1463 1469
+   50  ps
+   51  terraform apply --auto-approve -lock=false
+   52  terraform destroy --auto-approve
+   53  vim main.tf
+   54  terraform apply --auto-approve -lock=false
+   55  vim main.tf
+   56  terraform apply --auto-approve
+   57  vim main.tf
+   58  history
+
