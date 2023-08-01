@@ -253,3 +253,181 @@ HISTORY:
    57  vim main.tf
    58  history
 
+========================================
+
+DAY-04: 1-08-2023: LOCAL, VPC, SUBNET, WORKSPACE, VALIDATE, GRAPH
+
+
+TERRAFORM VALIDATE: It will validte the terraform files. (syntax check)
+
+LOCALS: we use this block to define the values for resources.
+we can define value once and use this multiple times.
+Adv: we can modify the value once and rest will change automatically.
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+locals {
+Name = "devserver"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0b915513496b814ce"
+instance_type = "t2.micro"
+tags = {
+Name = "${local.Name}"
+}
+}
+
+
+
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+locals {
+Name = "test"
+}
+
+resource "aws_vpc" "one" {
+cidr_block = "10.0.0.0/16"
+tags = {
+Name = "${local.Name}-vpc"
+}
+}
+
+resource "aws_subnet" "two" {
+vpc_id = aws_vpc.one.id
+cidr_block = "10.0.0.0/24"
+tags = {
+Name = "${local.Name}-subnet"
+}
+}
+
+resource "aws_instance" "three" {
+subnet_id = aws_subnet.two.id
+ami = "ami-0b915513496b814ce"
+instance_type = "t2.micro"
+tags = {
+Name = "${local.Name}-instance"
+}
+}
+
+
+TERRAFORM GRAPH: It will show the blueprint(flow chart) of terraform resource creation.
+linK: graphwiz online
+copy past the content on this site.
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table.html
+
+
+WORKSPACE: it is used to isloate the environments.
+each action we apply on one workspace will not effect another workspace.
+in real time we use the workspace to create dev, test --- envs
+Note: 
+1. To delete workspace it should be empty.
+2. We cant delete current workspace.
+2. we cant Default workspace (it will not create any resource)
+
+
+terraform workspace list	: lists the workspaces
+terraform workspace new dev	: creates workspace
+terraform workspace show	: shows the current workspace
+terraform workspace select dev	: switch to dev workspace
+terraform workspace delete dev	: to delete dev workspace
+
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+locals {
+Name = "${terraform.workspace}"
+}
+
+resource "aws_instance" "three" {
+ami = "ami-0b915513496b814ce"
+availability_zone = "eu-west-3b"
+key_name = "terraform"
+instance_type = "t2.medium"
+tags = {
+Name = "${local.Name}-instance"
+}
+}
+
+history:
+
+67  terraform state list
+   68  vim main.tf
+   69  terraform init
+   70  terraform validate
+   71  terraform plan
+   72  terraform apply --auto-approve
+   73  vim main.tf
+   74  terraform destroy --auto-approve
+   75  vim main.tf
+   76  terraform plan
+   77  vim main.tf
+   78  terraform plan
+   79  vim main.tf
+   80  terraform plan
+   81  terraform apply --auto-approve
+   82  vim main.tf
+   83  terraform apply --auto-approve
+   84  terraform state list
+   85  terraform graph
+   86  terraform workspace list
+   87  terraform workspace new dev
+   88  terraform workspace list
+   89  terraform workspace show
+   90  terraform workspace select default
+   91  terraform destroy --auto-approve
+   92  terraform workspace select dev
+   93  vim main.tf
+   94  terraform apply --auto-approve
+   95  terraform state list
+   96  terraform workspace new test
+   97  terraform apply --auto-approve
+   98  terraform workspace new prod
+   99  vim main.tf
+  100  terraform apply --auto-approve
+  101  terraform state list
+  102  terraform workspace delete prod
+  103  terraform destroy --auto-approve
+  104  terraform worspace list
+  105  terraform workspace list
+  106  terraform workspace delete prod
+  107  terraform workspace select test
+  108  terraform workspace delete prod
+  109  terraform workspace list
+  110  terraform state list
+  111*
+  112  terraform workspace list
+  113  terraform workspace select dev
+  114  terraform workspace delete test
+  115  terraform workspace list
+  116  terraform destroy --auto-approve
+  117  terraform workspace select default
+  118  terraform workspace delete dev
+  119  terraform workspace list
+  120  terraform workspace delete default
+  121  vim main.tf
+  122  terraform apply --auto-approve
+  123  vim main.tf
+  124  terraform apply --auto-approve
+  125  vim main.tf
+  126  aws ec2 stop-instances --instance-ids i-09d27f174f2d07bc1
+  127  aws ec2 stop
+  128  aws ec2 | frep -i stop
+  129  aws ec2 | grep -i stop
+  130  aws ec2 stop -h
+  131  aws ec2 stop-instances --instance-ids i-0a9684385a12b8593
+  132  aws ec2 stop-instances --instance-ids i-09d27f174f2d07bc1
+  133  cat /root/.aws/config
+  134  vim /root/.aws/config
+  135  aws ec2 stop-instances --instance-ids i-09d27f174f2d07bc1
+  136  vim /root/.aws/config
+  137  aws ec2 stop-instances --instance-ids i-0a9684385a12b8593
+  138  aws ec2 start-instances --instance-ids i-0a9684385a12b8593
