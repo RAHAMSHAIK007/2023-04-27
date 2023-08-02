@@ -431,3 +431,204 @@ history:
   136  vim /root/.aws/config
   137  aws ec2 stop-instances --instance-ids i-0a9684385a12b8593
   138  aws ec2 start-instances --instance-ids i-0a9684385a12b8593
+
+==============================================================================
+
+DAY-06:
+
+TERRAFORM DYNMIC BLOCK:
+It will help to reuse the code.it will reduce the lenght of code
+
+
+WITHOUT DYNAMIC BLOCK:
+
+resource "aws_security_group" "five" {
+  name = "elb-sg"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+
+
+
+provider "aws" {
+}
+
+locals {
+  ingress_rules = [{
+    port        = 443
+    },
+    {
+      port        = 80
+  },
+  {
+      port        = 8080
+  }]
+}
+
+resource "aws_instance" "ec2_example" {
+  ami                    = "ami-0c02fb55956c7d316"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.main.id]
+  tags = {
+    Name = "Terraform EC2"
+  }
+}
+
+resource "aws_security_group" "main" {
+
+  egress = [
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "*"
+      from_port        = 0
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      protocol         = "-1"
+      security_groups  = []
+      self             = false
+      to_port          = 0
+  }]
+
+  dynamic "ingress" {
+    for_each = local.ingress_rules
+
+    content {
+      description = "*"
+      from_port   = ingress.value.port
+      to_port     = ingress.value.port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  tags = {
+    Name = "terra sg"
+  }
+}
+
+
+
+BACKEND S3:
+
+
+provider "aws" {
+}
+
+terraform {
+  backend "s3" {
+    bucket = "mybucket"
+    key    = "prod"
+    region = "eu-west-3"
+  }
+}
+
+
+resource "aws_instance" "one" {
+  for_each = toset(["one", "two", "three"])
+  ami           = "ami-06f7633a6b8e0fb0a"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "instance-${each.key}"
+  }
+}
+
+
+LOOPS:
+
+provider "aws" {
+}
+
+
+resource "aws_instance" "one" {
+  for_each = toset(["one", "two", "three"])
+  ami           = "ami-06f7633a6b8e0fb0a"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "instance-${each.key}"
+  }
+}
+
+HISTORY:
+
+  1  aws configure
+    2  mkdir terraform
+    3  cd terraform/
+    4  sudo yum install -y yum-utils shadow-utils
+    5  sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+    6  sudo yum -y install terraform
+    7  vim main.tf
+    8  terraform init
+    9  terraform plan
+   10  vim /root/.aws/credentials
+   11  terraform plan
+   12  terraform apply --auto-approve
+   13  cat main.tf
+   14  vim main.tf
+   15  terraform apply --auto-approve
+   16  terraform destroy --auto-approve
+   17  vim main.tf
+   18  terraform apply --auto-approve
+   19  vim main.tf
+   20  terraform apply --auto-approve
+   21  vim main.tf
+   22  terraform apply --auto-approve
+   23  terraform destroy --auto-approve
+   24  vim main.tf
+   25  terraform apply --auto-approve
+   26  vim main.tf
+   27  terraform apply --auto-approve
+   28  vim main.tf
+   29  terraform apply --auto-approve
+   30  terraform state list
+   31  ll
+   32  cat terraform.tfstate
+   33  cat terraform.tfstate.backup
+   34  vim -o terraform.tfstate terraform.tfstate.backup
+   35  vim -O terraform.tfstate terraform.tfstate.backup
+   36  ll
+   37  vim main.tf
+   38  terraform init
+   39  terraform validate
+   40  terraform apply --auto-approve
+   41  terraform state list
+   42  vim main.tf
+   43  terraform apply --auto-approve
+   44  terraform destrou --auto-approve
+   45  terraform destroy --auto-approve
+   46  vim main.tf
+   47  terraform apply --auto-approve
+   48  terraform init -reconfigure
+   49  terraform apply --auto-approve
+   50  terraform init
+   51  terraform plan
+   52  terraform init -reconfigure
+   53  terraform init -migrate-state
+   54  terraform apply --auto-approve
+   55  vim main.tf
+   56  terraform apply --auto-approve
+   57  terraform state list
+   58  terraform destroy --auto-approve
+   59  vim main.tf
+   60  history
+
