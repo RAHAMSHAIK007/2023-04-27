@@ -632,3 +632,194 @@ HISTORY:
    59  vim main.tf
    60  history
 
+========================================================
+day-06: 7-08-2023: IMPORT, LOCAL RESOURCES, VERSION CONSTARTINTS, META ARGUMENTS LIFECYCLE
+
+
+TERRAFORM IMPORT: Used to import the resource config which is created manually.
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+resource "aws_instance" "abc" {
+
+}
+
+terraform import aws_instance.abc (instance-id)
+
+
+LOCAL RESOURCES:
+If we want to create local resources we need to use local provider plugins.
+so use terraform init 
+
+provider "aws" {
+region = "eu-west-3"
+}
+
+resource "local_file" "one" {
+filename = "abc.txt"
+content = "hai all this is my file created by terrafom"
+}
+
+
+VERSION CONSTRAINTS:
+aws provoider, gcp provider, azure provider, local provider
+if we want to chnage the version of provider so we use this concept.
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = ">5.9.0, <5.11.0"
+    }
+  }
+}
+
+
+terraform {
+  required_providers {
+    local = {
+      source = "hashicorp/local"
+      version = "2.4.0"
+    }
+  }
+}
+
+MODULES: It will divide the code into multiple files and folders seperately.
+if you want ec2 code you need to go ec2 folder
+if you want s3 code you need to go s3 folder
+
+
+cat main.tf
+module "my_instance_module" {
+        source = "./modules/instances"
+        ami = "ami-0b915513496b814ce"
+        instance_type = "t2.micro"
+        instance_name = " rahaminstance"
+}
+
+module "s3_module" {
+source = "./modules/buckets"
+bucket_name = "devopsherahamshaik009988"
+}
+
+cat provider.tf
+provider "aws" {
+}
+
+cat modules/instances/main.tf
+resource "aws_instance" "my_instance" {
+        ami = var.ami
+        instance_type = var.instance_type
+        tags = {
+                Name = var.instance_name
+        }
+}
+
+cat modules/instances/variable.tf
+variable "ami" {
+  type          = string
+}
+
+variable "instance_type" {
+  type          = string
+}
+
+variable "instance_name" {
+  description   = "Value of the Name tag for the EC2 instance"
+  type          = string
+}
+
+cat modules/buckets/main.tf
+
+resource "aws_s3_bucket" "b" {
+bucket = var.bucket_name
+}
+
+
+cat modules/buckets/variable.tf
+
+variable "bucket_name" {
+type = string
+}
+
+
+HISTORY:
+
+144  vim main.tf
+  145  terraform import aws_instance.abc=i-07016d4e7a943e3cc
+  146  cat main.tf
+  147  terraform import aws_instance.abc i-07016d4e7a943e3cc
+  148  vim /root/.aws/credentials
+  149  terraform import aws_instance.abc i-07016d4e7a943e3cc
+  150  cat terraform.tfstate
+  151  vim main.tf
+  152  terraform init
+  153  terraform apply --auto-approve
+  154  vim main.tf
+  155  terraform apply --auto-approve
+  156  ll
+  157  cat abc.txt
+  158  vim main.tf
+  159  terraform init
+  160  vim main.tf
+  161  ll
+  162  cat main.tf
+  163  terraform apply --auto-approve
+  164  vim main.tf
+  165  terraform init
+  166  terraform init -upgrade
+  167  vim main.tf
+  168  terraform init -upgrade
+  169  vim main.tf
+  170  terraform init -upgrade
+  171  vim main.tf
+  172  terraform init -upgrade
+  173  vim main.tf
+  174  terraform init -upgrade
+  175  vim main.tf
+  176  terraform init -upgrade
+  177  vim main.tf
+  178  terraform init -upgrade
+  179  vim main.tf
+  180  terraform init -upgrade
+  181  vim main.tf
+  182  vim provider.tf
+  183  cat main.tf
+  184  cat provider.tf
+  185  mkdir -p modules/instances
+  186  mkdir -p modules/buckets
+  187  yum install tree -y
+  188  tree
+  189  vim modules/instances/main.tf
+  190  vim modules/instances/variable
+  191  vim modules/instances/variable.tf
+  192  cat m
+  193  cat main.tf
+  194  tree
+  195  cat main.tf
+  196  vim modules/buckets/main.tf
+  197  vim modules/buckets/variable.tf
+  198  tree
+  199  cat m
+  200  cat main.tf
+  201  vim main.tf
+  202  terraform init -upgrade
+  203  terraform apply --auto-approve
+  204  terraform destroy --auto-approve
+  205  rm -rf *
+  206  vim main.tf
+  207  terraform apply --auto-approve
+  208  terraform destroy --auto-approve
+  209  vim main.tf
+  210  terraform apply --auto-approve
+  211  terraform destroy --auto-approve
+  212  vim main.tf
+  213  vim s3.tf
+  214  vim ebs.tf
+  215  terraform apply --auto-approve
+  216  vim ebs.tf
+  217  terraform apply --auto-approve
+
+
